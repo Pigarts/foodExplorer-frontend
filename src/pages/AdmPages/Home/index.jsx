@@ -21,10 +21,6 @@ export function Home() {
     function handleDetails(id) {
       navigate(`/food/${id}`)
     }
-    function handleEdit(id) {
-      navigate(`/editFood/${params.id}`)
-
-    }
 
     useEffect(() => {
         async function fetchCategory() {

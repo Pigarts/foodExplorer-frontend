@@ -10,6 +10,7 @@ height: 100vh;
 
 export const Content = styled.div`
 padding: 15px 24px ;
+
 `
 
 export const CardBox = styled.div`

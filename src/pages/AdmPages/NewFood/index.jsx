@@ -15,16 +15,16 @@ import { AlertError } from "../../../components/alertError"
 import { NiceAlert } from "../../../components/niceAlert"
 
 export function NewFood() {
-    const [imgFile, setImgFile] = useState("")
-    const [name, setName] = useState("")
-    const [category, setCategory] = useState("")
-    const [price, setPrice] = useState("")
-    const [description, setDescription] = useState('');
-    const [ingredients, setIngredients] = useState([])
-    const [newIngredients, setNewIngredients] = useState("")
-    const [error, setError] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
-    const [niceAlert, setNiceAlert] = useState(false)
+    const [ imgFile, setImgFile ] = useState("")
+    const [ name, setName ] = useState("")
+    const [ category, setCategory ] = useState("")
+    const [ price, setPrice ] = useState("")
+    const [ description, setDescription ] = useState('');
+    const [ ingredients, setIngredients ] = useState([])
+    const [ newIngredients, setNewIngredients ] = useState("")
+    const [ error, setError ] = useState(false)
+    const [ errorMessage, setErrorMessage ] = useState("")
+    const [ niceAlert, setNiceAlert ] = useState(false)
 
 
 

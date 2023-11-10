@@ -2,10 +2,10 @@ import styled from "styled-components"
 
 export const Container = styled.div`
 display: flex;
-
 flex-direction: column;
 
-background-color: ${({theme}) => theme.COLORS.RED_1};
+overflow-x: hidden;
+
 width: 100svw;
 height: 100svh;
 h1 {
@@ -18,8 +18,6 @@ h1 {
     
     margin-top: 24px;
     margin-bottom: 24px;
-
-
 }
 `
 export const Content = styled.div`
@@ -27,16 +25,6 @@ display: flex;
 flex-direction: column;
 align-items: flex-start;
 padding: 32px 24px ;
-background-color: ${({theme}) => theme.COLORS.RED_1};
-width: 100%;
-`
-export const FoodContainer = styled.div`
-display: flex;
-flex-direction: column;
-margin-top: 62px;
-margin-left: 24px;
-background-color: ${({theme}) => theme.COLORS.RED_1};
-
 `
 
 export const Form = styled.form`
@@ -48,8 +36,6 @@ gap: 24px;
 `
 
 export const TagBox = styled.div`
-width: auto;
-
 
 background-color: ${({theme}) => theme.COLORS.Dark_800};
 
@@ -58,12 +44,11 @@ align-items: center;
 justify-content: flex-start;
 padding: 8px;   
 gap: 24px;
-overflow-y: hidden ;
 overflow-x:  auto;
 `
 
 export const ImgUpload = styled.div`
-width: 100%;
+
 height: 56px;
 padding: 12px 32px;
 border-radius: 10px;
@@ -91,7 +76,7 @@ label {
     display: flex;
     align-items: center;
     gap: 8px;
-cursor: pointer;
+    cursor: pointer;
 
    svg{
     height: 30px;

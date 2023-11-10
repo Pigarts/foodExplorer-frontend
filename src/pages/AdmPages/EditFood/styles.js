@@ -2,12 +2,13 @@ import styled from "styled-components"
 
 export const Container = styled.div`
 display: flex;
-
 flex-direction: column;
 
-background-color: ${({theme}) => theme.COLORS.RED_1};
+overflow-x: hidden;
+
 width: 100svw;
 height: 100svh;
+
 h1 {
     color: ${({theme}) => theme.COLORS.Light_100};
     font-family: Poppins;
@@ -27,7 +28,6 @@ display: flex;
 flex-direction: column;
 align-items: flex-start;
 padding: 32px 24px ;
-background-color: ${({theme}) => theme.COLORS.RED_1};
 width: 100%;
 
 `
@@ -36,7 +36,6 @@ display: flex;
 flex-direction: column;
 margin-top: 62px;
 margin-left: 24px;
-background-color: ${({theme}) => theme.COLORS.RED_1};
 
 `
 

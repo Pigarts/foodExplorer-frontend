@@ -2,15 +2,12 @@ import { useEffect, useState } from "react"
 import { Container, FoodContainer, Content, FoodImage, Tags } from "./styles"
 import { Header } from "../../../components/header"
 import { IconButton } from "../../../components/IconButton"
-import { Icon_Left_Arrow, Icon_Receipt } from "../../../components/Icons"
+import { Icon_Left_Arrow } from "../../../components/Icons"
 import { Button } from "../../../components/button"
 import { Tag } from "../../../components/tags"
 import { Footer } from "../../../components/footer"
 import { api } from "../../../services/api"
 import { useNavigate, useParams} from "react-router-dom"
-import foodImg from "../../../assets/Dish.png"
-import { Section } from "../../../components/section"
-import { Counter } from "../../../components/counter"
 
 export function FoodDetails() {
     const [food, setFood] = useState({});

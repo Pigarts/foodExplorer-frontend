@@ -46,7 +46,7 @@ export function Header() {
     return(
     <Container> 
         <Mobile>
-        <NavBar/> <IconButton onClick={() => navigate("/")} icon={Logo}/> {isAdmin ? <div></div> : <IconButton icon={Receipt} />}
+        <NavBar/> {!isAdmin ? <IconButton onClick={() => navigate("/")} icon={Logo}/> : <> <div className="admLogo"><IconButton onClick={() => navigate("/")} icon={Logo}/> <span>admin</span> </div> </>} {isAdmin ? <div></div> : <IconButton icon={Receipt} />}
         </Mobile>
         <Desktop>
         <IconButton onClick={() => navigate("/")} icon={Logo}/>
@@ -72,7 +72,7 @@ export function Header() {
               }
             </SearchBox> 
           }
-          <>{isAdmin ? <Button  className="2 new" title={`Novo prato`} onClick={() => navigate("/newFood")}> </Button> : <Button className="2"  icon={Icon_Receipt} title={`Pedidos (0)`}/>}</>  <IconButton icon={Icon_LogOut} onClick={handleSignOut}/>
+          <>{isAdmin ? <Button  className="2 new" title={`Novo prato`} onClick={() => navigate("/newFood")}> </Button> : <Button className="cart"  icon={Icon_Receipt} title={`Pedidos (0)`}/>}</>  <IconButton icon={Icon_LogOut} onClick={handleSignOut}/>
         </Desktop>
     </Container>
  )

@@ -64,6 +64,7 @@ export function FoodDetails() {
                     {food && 
                         <FoodContainer>  
                         <FoodImage src={`${api.defaults.baseURL}/files/${food.img}`} alt="Card" />
+                        <div className="foodInfos">
                         <h1>{food.name}</h1>
                         <p>{food.descriptions}.</p>
                         <Tags>
@@ -74,11 +75,13 @@ export function FoodDetails() {
                                 )
                             ))}
                         </Tags>
-
                         <div className="addLine">
                         <Counter foods={foodsValue} onFoodsChange={handleFoodsValueChange}/>
-                        <Button icon={Icon_Receipt} onClick={handleAddButton} title={ `Pedir ∙ R$${(foodsValue * food.price)}` }/>
+                        <Button className="order" icon={Icon_Receipt} onClick={handleAddButton} title={ `Incluir ∙ R$${(foodsValue * food.price)}` }/>
                         </div>
+                        </div>
+                        
+
                         </FoodContainer>
                     }
                 </Content>

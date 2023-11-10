@@ -4,12 +4,16 @@ export const Container = styled.div`
 display: flex;
 flex-direction: column;
 
+overflow-x: hidden;
+
 width: 100svw;
 height: 100svh;
 `
 
 export const Content = styled.div`
 padding: 15px 24px ;
+height: 100%;
+
 `
 
 export const CardBox = styled.div`

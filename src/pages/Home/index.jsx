@@ -41,7 +41,6 @@ export function Home() {
             <Header/>
             <Content>
                 <CardBox>
-
                 <Card 
                     imageSrc={cardImg}
                     title="Sabores inigualáveis"
@@ -53,9 +52,7 @@ export function Home() {
             {
   categories &&
   categories.map((category, index) => {
-
     const filteredFoods = Array.isArray(foods) ? foods.filter((food) => food.category === category) : [];
-
     return (
       <Section key={index} title={category}>
         {filteredFoods.map((filteredFood, foodIndex) => (
@@ -72,9 +69,6 @@ export function Home() {
     );
   })
 }
-
-            
-            
             </FoodContainer>
             </Content>
          <Footer/>

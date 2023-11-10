@@ -42,7 +42,7 @@ filter: brightness(0.9);
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: ${({theme}) => theme.COLORS.COLOR_1};
+  background: ${({theme}) => theme.COLORS.Dark_900};
   border-radius: 8px;
 }
 

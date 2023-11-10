@@ -27,3 +27,61 @@ background-color:  ${({theme}) => theme.COLORS.Dark_900};
     }
 }
 `
+
+export const SearchBox = styled.div`
+width: 90%;
+height: fit-content;
+background-color: ${({theme}) => theme.COLORS.Dark_600};
+position: absolute;
+overflow-y: auto;
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding: 5px;
+margin: 10px;
+z-index: 7;
+top: 200px;
+left: 3%;
+
+@media (min-width: 999px) {
+    top: 107px;
+    left: 30%;
+    width: 500px;
+
+}
+`
+
+export const FoodBox = styled.div`
+display: flex;
+align-items: center;
+gap: 15px;
+cursor: pointer;
+padding-bottom: 10px;
+border-bottom: 2px solid ${({theme}) => theme.COLORS.Dark_900};;
+color: ${({theme}) => theme.COLORS.Light_100};
+font-family: Poppins;
+font-size: 12px;
+font-weight: 500;
+line-height: 24px;
+>img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  pointer-events: none;
+}
+span {
+    font-size: 14px;
+}
+h2 {
+  font-size: 16px;
+}
+
+@media (min-width: 999px) {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 24px;
+    h2 {
+        font-size: 14px;
+}
+}
+`

@@ -22,6 +22,21 @@ padding: 52px 28px 24px ;
     display: none;
     
   }
+
+  div.admLogo {
+display: flex;
+align-items: center;
+gap: 8px;
+color: ${({theme}) => theme.COLORS.Cake_200};
+
+> span {
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+}
+}
 `
 
 export const Desktop = styled.div`
@@ -37,9 +52,10 @@ width: 100svw;
 height: 104px;
 padding: 24px 123px;
 
-button.new {
+button.new, button.cart {
   max-width: 216px;
 }
+
 
 @media (max-width: 999px) {
     display: none;

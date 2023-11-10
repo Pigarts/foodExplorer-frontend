@@ -4,6 +4,8 @@ export const Container = styled.div`
 display: flex;
 flex-direction: column;
 
+overflow-x: hidden;
+
 background-color: ${({theme}) => theme.COLORS.RED_1};
 width: 100svw;
 height: 100svh;
