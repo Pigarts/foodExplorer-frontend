@@ -9,13 +9,17 @@ import { Tag } from "../../components/tags"
 import { Footer } from "../../components/footer"
 import { useNavigate, useParams} from "react-router-dom"
 import { api } from "../../services/api"
+import { useAuth } from "../../hooks/auth";
 
 export function FoodDetails() {
     
     const [food, setFood] = useState({});
     const [likeIcon, setLikeIcon] = useState(false);
     const [foodsValue, setFoodsValue] = useState(0);
+    const [ cartIndex, setCartIndex ] = useState([])
+    const  { user, addToCart, removeFromCart }  = useAuth();
 
+    
     const params = useParams()
     
     const navigate = useNavigate()
@@ -28,30 +32,36 @@ export function FoodDetails() {
                 setFoodsValue(newValue);
         }
     
-    function handleAddButton() {
-        if (Number(foodsValue) == 0) {
-            return
-    }
-
-    let remove = food.price.replace("R$ ", "")
-    let replace = remove.replace(",", ".")
-    let numberPrice = parseFloat(replace)
-    const added = {
-            name: food.name,
-            quantidade: Number(foodsValue),
-            price: food.price,
-            total_price: ( numberPrice * Number(foodsValue)),
-            id: food.id
-    }
     
-    console.log(added)
-    return added;
+
+        function handleAddButton() {
+            let price = food.price
+
+            let remove = price.replace("R$ ", "")
+            let replace = remove.replace(",", ".")
+            let numberPrice = parseFloat(replace)
+            
+            const item = {
+                    name: food.title,
+                    quantity: Number(foodsValue),
+                    price: price,
+                    total_price: ( numberPrice * Number(foodsValue)),
+                    id: food.id
+            }
+            
+            if (Number(foodsValue) == 0) {
+                    removeFromCart(item);         
+                    return
+            }
+            
+            addToCart(item)
+           
     }
     
     function handleLikeButton() {
         setLikeIcon(!likeIcon)
     }
-    
+
     useEffect(() => {
         async function fetchFood() {
             const response = await api.get(`/foods/id/${params.id}`)

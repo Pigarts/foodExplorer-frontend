@@ -9,7 +9,6 @@ export function Receipt() {
 
     useEffect(() => {
         setCartIndex(screenCart.length)
-        console.log(screenCart.length)
       }, [screenCart])
 
     return(

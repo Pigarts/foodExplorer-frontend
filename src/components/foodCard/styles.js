@@ -71,7 +71,10 @@ export const CardTitle = styled.h2`
   `;
 
 export const CardDescription = styled.p`
-  width: 100%;
+
+  height: 42px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   color: ${({theme}) => theme.COLORS.Light_400};
   text-align: center;
@@ -79,7 +82,6 @@ export const CardDescription = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 160%;
-  text-overflow: clip;
   @media (max-width: 999px) {
       display: none;
   }

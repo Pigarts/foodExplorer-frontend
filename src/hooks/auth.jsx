@@ -8,10 +8,6 @@ function AuthProvider({children}) {
     const [data, setData] = useState({});
     const [screenCart, setScreenCart] = useState([]);
 
-
-    let cart = JSON.parse(localStorage.getItem("@foodExplorer:cart")) || [];
-    
-    
     async function signIn({email, password}) {
         try {
             const response = await api.post("/sessions", {email, password})
@@ -30,30 +26,30 @@ function AuthProvider({children}) {
         }
     }
 
+    let cart = JSON.parse(localStorage.getItem("@foodExplorer:cart")) || [];
+
     useEffect(() => {
         const token = localStorage.getItem("@foodExplorer:token")
         const user = localStorage.getItem("@foodExplorer:user")
         cart = localStorage.getItem("@foodExplorer:cart")
 
-        
-    
         if(token && user) {
             api.defaults.headers.common["authorization" ] = `Bearer ${token}`;
-    
+            
             setData(
                 {
                     token,
                     user: JSON.parse(user),
-                    cartData: JSON.parse(cart)
                 }
-            )
-        }
-        
+                )
+            }
+           
     }, [])
 
     function signOut() {
         localStorage.removeItem("@foodExplorer:token");
         localStorage.removeItem("@foodExplorer:user");
+        localStorage.removeItem("@foodExplorer:cart")
         setData({});
     }
 

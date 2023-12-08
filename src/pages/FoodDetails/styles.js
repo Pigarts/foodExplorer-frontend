@@ -14,7 +14,7 @@ export const Content = styled.div`
 padding: 37px  56px 24px 56px ;
 display: flex;
 flex-direction: column;
-justify-content: center;
+
 height: 100%;
 @media (min-width: 999px) {
    padding: 25px 130px ;
@@ -63,7 +63,6 @@ div.foodInfos {
 
 h1 {
    margin-top: 16px;
-   width: fit-content;
    color: ${({theme}) => theme.COLORS.Light_100};
    font-family: Poppins;
    font-size: 27.041px;

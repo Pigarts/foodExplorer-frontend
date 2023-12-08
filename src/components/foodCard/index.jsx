@@ -12,8 +12,11 @@ export function FoodCard({ imageSrc, title, description, price, id, onImageClick
         const [foodsValue, setFoodsValue] = useState(0);
         const [likeIcon, setLikeIcon] = useState(false);
         const [likeds, setLikeds] = useState([]);
+        const [cartQuantity, setCartQuantity] = useState(0)
+        
 
-        const  { user, addToCart, removeFromCart }  = useAuth();
+
+        const  { user, addToCart, removeFromCart, screenCart, cartData }  = useAuth();
 
         async function handleLikeButton() {       
                 await api.post(`/foods/like`, {user: user.id, food: id})
@@ -59,16 +62,28 @@ export function FoodCard({ imageSrc, title, description, price, id, onImageClick
                 fetchLikeds();
               }, [user.id]);
               
-              useEffect(() => {
+        useEffect(() => {
                 likeds.forEach(item => {
                   if (item.id === id) {
-                    console.log("achei");
+                //console.log("liked", item)
+                //console.log(screenCart);
+
                     setLikeIcon(true);
                   }
                 });
               }, [likeds, id]);
-             
-           
+
+        useEffect(() => {
+
+                screenCart.forEach(item => {
+                   console.log("Verificando");
+                   if (item.id == id) {
+                      console.log("Cart:",item.name, item.quantity);
+                      setCartQuantity(item.quantity)
+                      return
+                }
+                        });
+                }, []);
 
         return (
                 <CardContent>

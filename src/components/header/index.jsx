@@ -20,26 +20,26 @@ export function Header() {
     const [ cartIndex, setCartIndex ] = useState([])
     const { cartData, screenCart } = useAuth();
 
-    useEffect(() => {
-        setCartIndex(screenCart.length)
-        console.log(screenCart.length)
-      }, [screenCart])
     const {user, signOut}  = useAuth();
     const isAdmin = user.adm;
     const navigate = useNavigate()
-
-
+    
+    
     function handleSignOut() {
       navigate("/")
-        signOut()
-      }
+      signOut()
+    }
+    
+    function handleDetails(id) {
+      navigate(`/food/${id}`)
+    }
+    
+    useEffect(() => {
+        setCartIndex(screenCart.length)
 
-      function handleDetails(id) {
-        navigate(`/food/${id}`)
-      }
-
-      useEffect(() => {
-        if(search.length > 0 ) {
+      }, [screenCart])
+    useEffect(() => {
+      if(search.length > 0 ) {
 
             async function fetchFoods() {
                 const response = await api.get(`/foods?search=${search}`);
