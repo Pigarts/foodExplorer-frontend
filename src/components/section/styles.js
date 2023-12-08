@@ -25,6 +25,11 @@ width: 100%;
 position: relative;
 `
 export const Content = styled.div`
+@media (max-width: 999px) {
+
+}
+
+  
 margin-top: 24px;
 display: flex;
 flex-direction: row;
@@ -37,9 +42,9 @@ scroll-behavior: smooth;
 
 export const FadeIn = styled.div`
 position: absolute;
-height: 85%;
+height: 95%;
 width: 278px;
-background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+background: linear-gradient(90deg, ${({theme}) => theme.COLORS.Dark_400} 0%, rgba(255,255,255,0) 100%);
 left: -1px;
 z-index: 4;
 
@@ -60,8 +65,8 @@ display: none;
 export const FadeOut = styled.div`
 position: absolute;
 width: 278px;
-height: 85%;
-background: linear-gradient(-90deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+height: 95%;
+background: linear-gradient(-90deg, ${({theme}) => theme.COLORS.Dark_400} 0%, rgba(255,255,255,0) 100%);
 right: -1px;
 z-index: 4;
 

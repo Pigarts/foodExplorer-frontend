@@ -65,6 +65,8 @@ export function NewFood() {
     
                setTimeout(function(){
                 setNiceAlert(false)
+                    setErrorMessage(null)
+
                }, 2000);
                return
                 }
@@ -74,6 +76,8 @@ export function NewFood() {
     
                setTimeout(function(){
                   setError(false)
+                    setErrorMessage(null)
+
                }, 2000);
            }
     
@@ -116,39 +120,48 @@ export function NewFood() {
          <IconButton className="backButton" onClick={goBack} icon={Icon_Left_Arrow} title="Voltar"/>
          <h1>Novo prato</h1>
             <Form>
-            <ImgUpload className={imgFile ? "done" : ""}>
-                <label htmlFor="uploadImg">
-                {imgFile ? <Icon_Done/> :<Icon_Upload/> } 
-                <span>{imgFile ? "Imagem selecionada" : "Selecione imagem"}</span>
-                <Input id="uploadImg" type="file"
-                onChange={handleChangeFoodImg}/> 
-                </label>
-            </ImgUpload>
-            <Input title={"Nome"} placeholder="Ex.: Salada Ceasar" type="text"
-            onChange={e => setName(e.target.value)}/> 
-            <Select options={options} onChange={handleSelectChange} title={"Categoria"}/>
-            <TagBox>
-            <TagAddBox 
-                $isNew 
-                placeholder="Adicionar"
-                value={newIngredients}
-                onChange={e => setNewIngredients(e.target.value)} 
-                onClick={handleAddIngredients}
-                />
-                {
-                    ingredients.map((ingredients, index)=>(
-                        <TagAddBox key={String(index)} value={ingredients} onClick={() => handleRemoveTags(ingredients)}
-                        />
-                        ))
-                    }
-            </TagBox>
-            <Input title={"Preço"} placeholder="R$ 00.00" type="number"
-            onChange={e => setPrice(e.target.value)}/> 
-            <TextBox title={"Preço"} placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
+                <div className="line1">
+                    <ImgUpload className={imgFile ? "done" : ""}>
+                        <label htmlFor="uploadImg">
+                        {imgFile ? <Icon_Done/> :<Icon_Upload/> } 
+                        <span>{imgFile ? "Imagem selecionada" : "Selecione imagem"}</span>
+                        <Input id="uploadImg" type="file"
+                        onChange={handleChangeFoodImg}/> 
+                        </label>
+                    </ImgUpload>
+                    <Input title={"Nome"} placeholder="Ex.: Salada Ceasar" type="text"
+                    onChange={e => setName(e.target.value)}/> 
+                    <Select options={options} onChange={handleSelectChange} title={"Categoria"}/>
+                </div>
+            <div className="line2">
+                <div className="ingredients">
+                    <span>Ingredientes</span>
+                <TagBox>
+                <TagAddBox 
+                    $isNew 
+                    placeholder="Adicionar"
+                    value={newIngredients}
+                    onChange={e => setNewIngredients(e.target.value)} 
+                    onClick={handleAddIngredients}
+                    />
+                    {
+                        ingredients.map((ingredients, index)=>(
+                            <TagAddBox key={String(index)} value={ingredients} onClick={() => handleRemoveTags(ingredients)}
+                            />
+                            ))
+                        }
+                </TagBox>
+                </div>
+                <Input title={"Preço"} placeholder="R$ 00.00" type="number"
+                onChange={e => setPrice(e.target.value)}/> 
+            </div>
+            <TextBox title={"Descrição"} placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
             onChange={e => setDescription(e.target.value)}/>
+             
+            <Button className="save" onClick={handleSaveButton} title="Salvar novo prato" loading={false}/>
+     
             <AlertError title={errorMessage} visible={error}/>
             <NiceAlert title={errorMessage} visible={niceAlert}/>
-            <Button onClick={handleSaveButton} title="Salvar novo prato" loading={false}/>
 
             </Form>
          </Content>

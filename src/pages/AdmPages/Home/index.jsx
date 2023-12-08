@@ -62,7 +62,8 @@ export function Home() {
           <AdmFoodCard
             key={foodIndex}
             imageSrc={`${api.defaults.baseURL}/files/${filteredFood.img}`}
-            title={filteredFood.name}
+            title={`${filteredFood.name} >`}
+            description={filteredFood.descriptions}
             price={`R$ ${filteredFood.price}`}
             id={filteredFood.id}
             onImageClick={() => handleDetails(filteredFood.id)}

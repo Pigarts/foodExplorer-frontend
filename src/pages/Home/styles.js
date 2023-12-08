@@ -11,6 +11,9 @@ height: 100vh;
 export const Content = styled.div`
 padding: 15px 24px ;
 
+@media (max-width: 999px) {
+  //height: 100%;    
+  }
 `
 
 export const CardBox = styled.div`

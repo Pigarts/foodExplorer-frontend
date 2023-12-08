@@ -3,22 +3,19 @@ import { Container, FoodContainer, Content, FoodImage, Tags } from "./styles"
 import { Header } from "../../components/header"
 import { IconButton } from "../../components/IconButton"
 import { Icon_Left_Arrow, Icon_Receipt } from "../../components/Icons"
-import { Section } from "../../components/section"
 import { Button } from "../../components/button"
 import { Counter } from "../../components/counter"
 import { Tag } from "../../components/tags"
 import { Footer } from "../../components/footer"
-import foodImg from "../../assets/Dish.png"
 import { useNavigate, useParams} from "react-router-dom"
 import { api } from "../../services/api"
-
-
 
 export function FoodDetails() {
     
     const [food, setFood] = useState({});
     const [likeIcon, setLikeIcon] = useState(false);
-    const [foodsValue, setFoodsValue] = useState(1);
+    const [foodsValue, setFoodsValue] = useState(0);
+
     const params = useParams()
     
     const navigate = useNavigate()
@@ -27,20 +24,28 @@ export function FoodDetails() {
         navigate(-1)
     }
     
-    function handleFoodsPrice() {
-        const updatedPrice = foodsValue * food.price
-    }
-    
-    function handleFoodsValueChange() {
-        const price = food.price
-        let replace = price.replace(",", ".")
-        let numberPrice = parseFloat(replace)
-        setFoodsValue(numberPrice);
-        
-    }
+    function handleFoodsValueChange(newValue) {
+                setFoodsValue(newValue);
+        }
     
     function handleAddButton() {
-        console.log(foodsValue)
+        if (Number(foodsValue) == 0) {
+            return
+    }
+
+    let remove = food.price.replace("R$ ", "")
+    let replace = remove.replace(",", ".")
+    let numberPrice = parseFloat(replace)
+    const added = {
+            name: food.name,
+            quantidade: Number(foodsValue),
+            price: food.price,
+            total_price: ( numberPrice * Number(foodsValue)),
+            id: food.id
+    }
+    
+    console.log(added)
+    return added;
     }
     
     function handleLikeButton() {
@@ -73,7 +78,8 @@ export function FoodDetails() {
                             food.foodIngredients.map((ingredient) => (
                                 <Tag key={ingredient.id} title={ingredient.name}/>
                                 )
-                            ))}
+                            ))
+                            }
                         </Tags>
                         <div className="addLine">
                         <Counter foods={foodsValue} onFoodsChange={handleFoodsValueChange}/>

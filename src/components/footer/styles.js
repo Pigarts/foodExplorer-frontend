@@ -6,6 +6,9 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 
+position: static;
+bottom: 0;
+
 width: 100svw;
 height: 77px;   
 padding: 27px 30px;

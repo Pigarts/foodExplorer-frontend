@@ -4,8 +4,14 @@ export const AuthContext = createContext({});
 
 
 function AuthProvider({children}) {
-    const [data, setData] = useState({});
 
+    const [data, setData] = useState({});
+    const [screenCart, setScreenCart] = useState([]);
+
+
+    let cart = JSON.parse(localStorage.getItem("@foodExplorer:cart")) || [];
+    
+    
     async function signIn({email, password}) {
         try {
             const response = await api.post("/sessions", {email, password})
@@ -24,13 +30,12 @@ function AuthProvider({children}) {
         }
     }
 
-   async function newFood({food}) {
-
-   }
-
     useEffect(() => {
         const token = localStorage.getItem("@foodExplorer:token")
         const user = localStorage.getItem("@foodExplorer:user")
+        cart = localStorage.getItem("@foodExplorer:cart")
+
+        
     
         if(token && user) {
             api.defaults.headers.common["authorization" ] = `Bearer ${token}`;
@@ -38,11 +43,12 @@ function AuthProvider({children}) {
             setData(
                 {
                     token,
-                    user: JSON.parse(user)
+                    user: JSON.parse(user),
+                    cartData: JSON.parse(cart)
                 }
             )
         }
-    
+        
     }, [])
 
     function signOut() {
@@ -51,8 +57,19 @@ function AuthProvider({children}) {
         setData({});
     }
 
+    function addToCart(item) {
+        cart.push(item);
+        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
+        setScreenCart(cart)
+    }
+
+    function removeFromCart(itemToRemove) {
+        cart = cart.filter(item => item.id !== itemToRemove.id);
+        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
+        setScreenCart(cart)
+    }
     return(
-        <AuthContext.Provider value={{signIn, signOut, user: data.user}}>
+        <AuthContext.Provider value={{signIn, signOut, addToCart, removeFromCart, user: data.user, cartData: data.cartData, screenCart}}>
             {children}
         </AuthContext.Provider>
     )

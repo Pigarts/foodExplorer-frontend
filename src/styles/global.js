@@ -30,7 +30,8 @@ filter: brightness(0.9);
 
 /* width */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
+    height: 10px;
 }
 
 /* Track */
@@ -42,7 +43,12 @@ filter: brightness(0.9);
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: ${({theme}) => theme.COLORS.Dark_900};
+  background: transparent;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: ${({theme}) => theme.COLORS.Dark_1000};
   border-radius: 8px;
 }
 

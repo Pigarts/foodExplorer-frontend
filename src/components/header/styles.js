@@ -56,7 +56,10 @@ button.new, button.cart {
   max-width: 216px;
 }
 
-
+button.likeds {
+  min-width: 104px;
+  color: ${({theme}) => theme.COLORS.Light_300}
+}
 @media (max-width: 999px) {
     display: none;
     

@@ -25,6 +25,7 @@ display: flex;
 flex-direction: column;
 align-items: flex-start;
 padding: 32px 24px ;
+
 `
 
 export const Form = styled.form`
@@ -32,13 +33,70 @@ display: flex;
 width: 100%;
 flex-direction: column;
 gap: 24px;
+span {
+    color: ${({theme}) => theme.COLORS.Light_400};
+}
 
+div.line1, div.line2 {
+    display: flex;
+    flex-direction: column;
+gap: 14px;
+} 
+
+div.ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+}
+@media (min-width: 999px) {
+    >div.line1 {
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+        width: 100%;
+        gap: 32px;
+        >:nth-child(3) {
+         min-width: 364px;
+   
+      }
+   }
+   >div.line2 {
+      width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+        width: 100%;
+        gap: 32px;
+        div.ingredients {
+          width: 100%;
+        }
+        >:nth-child(2) {
+       width: 351px;
+      }
+   }
+   >div.line3 {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        
+        width: 100%;
+        gap: 32px;
+        >:nth-child(1) {
+           width: 200px;
+           white-space: nowrap;
+      overflow: hidden;
+        }
+       
+   }
+
+}
 `
 
 export const TagBox = styled.div`
 
 background-color: ${({theme}) => theme.COLORS.Dark_800};
-
+width: 100%;
 display: flex;        
 align-items: center;
 justify-content: flex-start;
@@ -62,7 +120,9 @@ cursor: pointer;
 }
 
 span {
-    width: 300px;
+    width: fit-content;
+    white-space: nowrap;
+    overflow: hidden;
     font-family: Poppins;
     font-size: 14px;
     font-weight: 500;
@@ -71,17 +131,20 @@ span {
 }
 
 label {
-    height: 100%;
-    width: 100%;
+
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
+   
+    svg{
+        height: 30px;
+        width: 30px;
+    }
+    >:nth-child(3) {
+       display: none;
+    }
 
-   svg{
-    height: 30px;
-    width: 30px;
-   }
 }
 input {
     display: none;

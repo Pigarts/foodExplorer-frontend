@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Search } from "../search"
 import { Icon_LogOut, Icon_Receipt, Icon_search } from "../Icons";
 import { Button } from "../button";
+import { TextButton } from "../textButton";
 import { useAuth } from "../../hooks/auth";
 import { useState, useEffect } from "react";
 import { api } from "../../services/api";
@@ -16,9 +17,17 @@ import { Tag } from "../tags"
 export function Header() {
     const [ searchFoods, setSearchFoods] = useState([])
     const [ search, setSearch] = useState("")
+    const [ cartIndex, setCartIndex ] = useState([])
+    const { cartData, screenCart } = useAuth();
+
+    useEffect(() => {
+        setCartIndex(screenCart.length)
+        console.log(screenCart.length)
+      }, [screenCart])
     const {user, signOut}  = useAuth();
     const isAdmin = user.adm;
     const navigate = useNavigate()
+
 
     function handleSignOut() {
       navigate("/")
@@ -72,8 +81,9 @@ export function Header() {
               }
             </SearchBox> 
           }
-          <>{isAdmin ? <Button  className="2 new" title={`Novo prato`} onClick={() => navigate("/newFood")}> </Button> : <Button className="cart"  icon={Icon_Receipt} title={`Pedidos (0)`}/>}</>  <IconButton icon={Icon_LogOut} onClick={handleSignOut}/>
+          <>{isAdmin ? <Button  className="2 new" title={`Novo prato`} onClick={() => navigate("/newFood")}> </Button> :  <><TextButton className="likeds" title={"Meus favoritos"} onClick={() => navigate("/likeds")}/> <Button className="cart"  icon={Icon_Receipt} title={`Pedidos (${cartIndex})`}/></>}</>  <IconButton icon={Icon_LogOut} onClick={handleSignOut}/>
         </Desktop>
+        <></>
     </Container>
  )
 }

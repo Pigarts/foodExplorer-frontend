@@ -32,6 +32,7 @@ export function NavBar() {
              isAdmin && 
              <li><Link to="/newFood"><span>Novo prato</span></Link></li>
             }
+            <li><Link to="/likeds"><span>Meus favoritos</span></Link></li>
             <li><Link onClick={handleSignOut} to="/"><span>Sair</span></Link></li>
           </ul>
           </Content>

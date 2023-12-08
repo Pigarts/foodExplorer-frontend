@@ -14,6 +14,7 @@ export const Content = styled.div`
 padding: 37px  56px 24px 56px ;
 display: flex;
 flex-direction: column;
+justify-content: center;
 height: 100%;
 @media (min-width: 999px) {
    padding: 25px 130px ;
@@ -26,23 +27,21 @@ flex-direction: column;
 align-items: center;
 margin-top: 19px;
 background-color: ${({theme}) => theme.COLORS.RED_1};
-width: 100%;
-
 div.foodInfos {
    align-items: center;
    p  {
-         text-align: center;
-      }
+      text-align: center;
+   }
 }
 
 @media (min-width: 999px) {
    flex-direction: row;
    justify-items: center;
    img {
-     height: 390px;
-     width: 390px;
+      height: 390px;
+      width: 390px;
    }
-
+   
    button.order {
       width: 162px;
       margin-left: 15px;
@@ -51,45 +50,47 @@ div.foodInfos {
       }
    }
    div.foodInfos {
+      width: fit-content;
       margin-left: 47px;
       flex-direction: column;
       gap: 24px;
       p {
-            text-align: start;
-         }
+         text-align: start;
+      }
    }
 }
 
- 
- h1 {
-    margin-top: 16px;
 
-    color: ${({theme}) => theme.COLORS.Light_100};
-    font-family: Poppins;
-    font-size: 27.041px;
-    font-weight: 500;
-    line-height: 140%;
+h1 {
+   margin-top: 16px;
+   width: fit-content;
+   color: ${({theme}) => theme.COLORS.Light_100};
+   font-family: Poppins;
+   font-size: 27.041px;
+   font-weight: 500;
+   line-height: 140%;
    text-align: center;
-
-    @media (min-width: 999px) {
-   text-align: start;
- }
+   
+   @media (min-width: 999px) {
+      text-align: start;
+   }
 }
 
- p {
-    margin-top: 24px;
+p {
+   margin-top: 24px;
+   width: fit-content;
+   
+   color: ${({theme}) => theme.COLORS.Light_100};
+   
+   text-align: center;
+   font-family: Poppins;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 140%;
+}
 
-    color: ${({theme}) => theme.COLORS.Light_100};
-
-    text-align: center;
-    font-family: Poppins;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 140%;
- }
-
- .addLine {
-    margin-top: 48px;
+.addLine {
+   margin-top: 48px;
     display: flex;
     gap: 16px;
     align-items: center;

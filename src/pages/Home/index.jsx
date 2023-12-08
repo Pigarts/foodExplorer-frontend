@@ -4,16 +4,17 @@ import { Card } from "../../components/card"
 import { FoodCard } from "../../components/foodCard"
 import { Section } from "../../components/section"
 import cardImg from "../../assets/pngegg2.png"
-import foodImg from "../../assets/Dish.png"
 import { Footer } from "../../components/footer"
 import { useEffect, useState } from "react"
 import { api } from "../../services/api"
 import { useNavigate } from "react-router-dom"
 
+
 export function Home() {
-    const [categories, setCategories] = useState([]);
-    const [foods, setFoods] = useState({});
-    const navigate = useNavigate()
+  const [categories, setCategories] = useState([]);
+  const [foods, setFoods] = useState({});
+  const navigate = useNavigate()
+
 
     function handleDetails(id) {
       navigate(`/food/${id}`)
@@ -58,8 +59,10 @@ export function Home() {
         {filteredFoods.map((filteredFood, foodIndex) => (
           <FoodCard
             key={foodIndex}
+            like={0}
             imageSrc={`${api.defaults.baseURL}/files/${filteredFood.img}`}
-            title={filteredFood.name}
+            title={`${filteredFood.name} >`}
+            description={filteredFood.descriptions}
             price={`R$ ${filteredFood.price}`}
             id={filteredFood.id}
             onImageClick={() => handleDetails(filteredFood.id)}

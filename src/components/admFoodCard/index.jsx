@@ -1,11 +1,11 @@
-import {  CardImage, ImgButton, CardContent, CardTitle, CardDescription } from "./styles";
+import {  CardImage, ImgButton, CardContent, CardTitle, CardPrice, CardDescription } from "./styles";
 import { IconButton } from "../IconButton";
 import { Icon_Edit } from "../Icons";
 import { useNavigate } from "react-router-dom"
 
 
 
-export function AdmFoodCard({ imageSrc, title, price, onImageClick, id }) {
+export function AdmFoodCard({ imageSrc, title, price, description, onImageClick, id }) {
 
         const navigate = useNavigate()
 
@@ -17,12 +17,13 @@ export function AdmFoodCard({ imageSrc, title, price, onImageClick, id }) {
 
         return (
                 <CardContent>
-                <IconButton onClick={handleEditButton} className="like" icon={Icon_Edit}/>
+                <IconButton onClick={handleEditButton} className="edit" icon={Icon_Edit}/>
                 <ImgButton onClick={onImageClick}>
                 <CardImage src={imageSrc} alt="Imagem da comida" />
                 </ImgButton>
                 <CardTitle>{title}</CardTitle>
-                <CardDescription>{price}</CardDescription>
+                <CardDescription>{description}</CardDescription>
+                <CardPrice>{price}</CardPrice>
                 </CardContent>
 )
 }

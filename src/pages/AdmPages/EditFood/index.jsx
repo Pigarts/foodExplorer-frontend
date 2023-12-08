@@ -159,49 +159,56 @@ export function EditFood() {
          {food && (
 
             <Form>
-            <ImgUpload className={imgFile ? "done" : ""}>
-                <label htmlFor="uploadImg">
-                {imgFile ? <Icon_Done/> :<Icon_Upload/> } 
-                <span>{imgFile ? "Imagem selecionada" : "Selecione imagem"}</span>
-                <Input id="uploadImg" type="file" onChange={handleChangeFoodImg}/> 
-                </label>
-            </ImgUpload>
-            <Input 
-            title={"Nome"}
-            placeholder="Ex.: Salada Ceasar"
-            defaultValue={food.name}
-            onChange={e => setName(e.target.value)}
-            /> 
-            <Select options={options} title={"Categoria"} 
-            defaultValue={ food.category} onChange={e => setCategory(e.target.value)}/> 
-            <TagBox>
-            <TagAddBox 
-                $isNew 
-                placeholder="Adicionar"
-                value={newIngredients}
-                onChange={e => setNewIngredients(e.target.value)} 
-                onClick={handleAddIngredients}
-                />
-                {
-                    
-                    ingredients.map((ingredients, index)=>( 
-                        <TagAddBox key={String(index)} value={ingredients} onClick={() => handleRemoveIngredients(ingredients)}
-                    />
-                    ))
-                }
-            </TagBox>
-            <Input title={"Preço"} placeholder="R$ 00,00" type="number"
-            defaultValue={food.price}
-            onChange={e => setPrice(e.target.value)}/> 
+                <div className="line1">
+                    <ImgUpload className={imgFile ? "done" : ""}>
+                        <label htmlFor="uploadImg">
+                        {imgFile ? <Icon_Done/> :<Icon_Upload/> } 
+                        <span>{imgFile ? "Imagem selecionada" : "Selecione imagem"}</span>
+                        <Input id="uploadImg" type="file" onChange={handleChangeFoodImg}/> 
+                        </label>
+                    </ImgUpload>
+                    <Input 
+                    title={"Nome"}
+                    placeholder="Ex.: Salada Ceasar"
+                    defaultValue={food.name}
+                    onChange={e => setName(e.target.value)}
+                    /> 
+                    <Select options={options} title={"Categoria"} 
+                    defaultValue={ food.category} onChange={e => setCategory(e.target.value)}/> 
+                </div>
+                <div className="line2">
+                    <div className="ingredients">
+                        <span>Ingredientes</span>
+                        <TagBox>
+                        <TagAddBox 
+                            $isNew 
+                            placeholder="Adicionar"
+                            value={newIngredients}
+                            onChange={e => setNewIngredients(e.target.value)} 
+                            onClick={handleAddIngredients}
+                            />
+                            {
+                                
+                                ingredients.map((ingredients, index)=>( 
+                                    <TagAddBox key={String(index)} value={ingredients} onClick={() => handleRemoveIngredients(ingredients)}
+                                />
+                                ))
+                            }
+                        </TagBox>
+                    </div>
+                        <Input title={"Preço"} placeholder="R$ 00,00" type="number"
+                        defaultValue={food.price}
+                        onChange={e => setPrice(e.target.value)}/> 
+                </div>
             <TextBox title={"Descrição"} placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
             defaultValue={food.descriptions}
             onChange={e => setDescription(e.target.value)}/>
-            <AlertError title={errorMessage} visible={error}/>
-            <NiceAlert title={errorMessage} visible={niceAlert}/>
 
             <div className="buttons">
             <Button onClick={handleDeleteButton} title="Excluir prato"/> <Button onClick={handleSaveButton} title="Salvar alterações" loading={false}/> 
             </div>
+            <AlertError title={errorMessage} visible={error}/>
+            <NiceAlert title={errorMessage} visible={niceAlert}/>
             </Form>
          )}
             

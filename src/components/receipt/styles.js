@@ -22,9 +22,18 @@ export const Container = styled.div`
     height: 20px;
     justify-content: center;
     align-items: center;
-    border-radius: 99px; 
+    border-radius: 50%; 
+    padding: 6px;
+
+    
+
     >span {
     color: ${({theme}) => theme.COLORS.Light_100};
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
 }
 }
 `
