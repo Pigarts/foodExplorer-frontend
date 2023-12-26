@@ -101,7 +101,8 @@ export function Pay( toPay ) {
       }, [screenCart])
 
     useEffect(() => {
-        const dados = `http://localhost:5173/${cartValue}`;
+        const dados = `como o carrinho de compras foi projetado para usar o local storage, a interação por outros dispositivos, no caso o leitor de qr code, fica prejudicada/ou dificultada
+                      valor do carrinho: ${cartValue}`;
     
         const opcoes = {
           errorCorrectionLevel: 'H',

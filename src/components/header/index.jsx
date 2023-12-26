@@ -35,7 +35,6 @@ export function Header() {
 
     useEffect(() => {
       if(!screenCart || screenCart == "[]") {
-        console.log("zero")
         setCartIndex(0)
         return
       }

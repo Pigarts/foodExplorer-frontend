@@ -66,7 +66,6 @@ export function FoodCard({ imageSrc, title, description, price, id, onImageClick
         useEffect(() => {
                 likeds.forEach(item => {
                   if (item.id === id) {
-                console.log("liked", item)
                     setLikeIcon(true);
                   }
                 });
@@ -77,7 +76,6 @@ export function FoodCard({ imageSrc, title, description, price, id, onImageClick
                 if(screenCart) {
                         screenCart.forEach(item => {
                                 if (item.id === id) {
-                              console.log("nome", item.name, "quantidade", item.quantity)
                               setCartQuantity(item.quantity)
                                 
                                 }
