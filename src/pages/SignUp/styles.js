@@ -8,7 +8,7 @@ justify-content: center;
 
 width: 100svw;
 height: 100svh;
-padding: 0 65px 0 65px;
+padding: 65px;
 
 background-color: ${({theme}) => theme.COLORS.Dark_400};
 
@@ -47,7 +47,7 @@ svg:nth-child(1){
 `
 
 export const Form = styled.form`
-min-width: 476px;
+width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -69,7 +69,7 @@ h1 {
 
 
 @media (min-width: 1000px) {
-    padding: 64px;
+    
     background-color: ${({theme}) => theme.COLORS.Dark_700};
   }
 `

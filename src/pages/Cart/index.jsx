@@ -51,7 +51,7 @@ export function Cart() {
             <img onClick={() => handleDetails(food.id)} src={`${api.defaults.baseURL}/files/${food.img}`} alt="imagem do prato" />
             <div className="cardLine">
               <div>
-              <p className="name">{`${food.quantity} x ${food.name}`}</p> <span className="price">{`R$ ${food.total_price}`}</span>
+              <p className="name">{`${food.quantity} x ${food.name}`}</p> <span className="price">{`R$ ${food.total_price.toFixed(2)}`}</span>
               </div>
               <TextButton title={"Excluir"} onClick={() => removeFromCart(food)}/>
             </div>
