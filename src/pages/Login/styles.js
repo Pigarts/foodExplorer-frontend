@@ -8,7 +8,7 @@ justify-content: center;
 
 width: 100svw;
 height: 100svh;
-padding: 0 65px 0 65px;
+padding: 65px;
 
 h1:nth-child(2){
   font-size: 37px;
@@ -35,8 +35,6 @@ svg:nth-child(1){
 }
 
 @media (min-width: 1000px) {
-  padding-left: 5%;
-  margin-right: 5%;
   svg:nth-child(1){
     height: 58px;
     width: 58px;
@@ -54,6 +52,8 @@ align-items: center;
 gap: 32px;
 margin-bottom: 32px;
 
+
+
 h1 {
   font-family: Poppins;
   font-size: 32px;
@@ -69,7 +69,7 @@ h1 {
 
 
 @media (min-width: 1000px) {
-  padding: 61px;
   background-color: ${({theme}) => theme.COLORS.Dark_700};
+  padding: 64px;
 }
 `
