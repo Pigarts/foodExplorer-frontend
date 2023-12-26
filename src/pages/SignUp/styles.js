@@ -47,12 +47,14 @@ svg:nth-child(1){
 `
 
 export const Form = styled.form`
+max-width: 476px;
 width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
 gap: 32px;
 margin-bottom: 32px;
+padding: 64px;
 
 h1 {
     font-family: Poppins;
@@ -69,7 +71,7 @@ h1 {
 
 
 @media (min-width: 1000px) {
-    
+
     background-color: ${({theme}) => theme.COLORS.Dark_700};
   }
 `

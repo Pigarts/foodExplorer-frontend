@@ -46,6 +46,7 @@ svg:nth-child(1){
 `
 
 export const Form = styled.form`
+max-width: 476px;
 width: 100%;
 display: flex;
 flex-direction: column;
@@ -68,8 +69,7 @@ h1 {
 
 
 @media (min-width: 1000px) {
-  padding: 64px;
+  padding: 61px;
   background-color: ${({theme}) => theme.COLORS.Dark_700};
-  padding: 65px;
 }
 `
