@@ -2,7 +2,6 @@ import { styled }  from "styled-components";
 
 export const Content = styled.div`
 span {
-  
     color: ${({theme}) => theme.COLORS.Light_400};
 }
 `
@@ -15,8 +14,9 @@ background-color:  ${({theme}) => theme.COLORS.Dark_800};
 border-radius: 10px;
 
 
-margin-top: 8px;
-margin-bottom: 8px;
+margin-top: 16px;
+
+
 
 >svg {
     margin-left: 16px;

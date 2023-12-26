@@ -37,22 +37,24 @@ export function FoodDetails() {
                 <Content>
                     <IconButton className="backButton" onClick={() => goBack()} icon={Icon_Left_Arrow} title="Voltar"/>
                     <FoodContainer>
-
                     <FoodImage src={`${api.defaults.baseURL}/files/${food.img}`} alt="Card" />
+                    <div className="foodinfos">
+
                     <h1>{food.name}</h1>
                     <p>{food.descriptions}.</p>
                     <Tags>
                         {
-                        food.foodIngredients && (
-                        food.foodIngredients.map((ingredient) => (
-                            <Tag key={ingredient.id} title={ingredient.name}/>
-                            )
-                        ))}
+                            food.foodIngredients && (
+                                food.foodIngredients.map((ingredient) => (
+                                    <Tag key={ingredient.id} title={ingredient.name}/>
+                                    )
+                                    ))}
                     </Tags>
 
                     <div className="addLine">
-                    <Button  title={ `Editar prato`} onClick={handleEditFood}/>
+                    <Button className="edit" title={ `Editar prato`} onClick={handleEditFood}/>
                     </div>
+                                    </div>
                     </FoodContainer>
                 </Content>
             <Footer/>

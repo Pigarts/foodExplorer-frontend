@@ -13,6 +13,7 @@ export const CardContent = styled.div`
 
   height: 462px;
   width: 304px;
+  min-width: 304px;
   
   .edit{
     position: absolute;
@@ -20,11 +21,13 @@ export const CardContent = styled.div`
     right: 16px;
     width: 24px;
     height: 24px;
+    z-index: 2C;
 
   }
   @media (max-width: 999px) {
     height: 292px;
     width: 210px;
+    min-width: 210px;
     gap: 12px;
  }
 
@@ -63,28 +66,28 @@ export const CardTitle = styled.h2`
   }
 `;
 
-export const CardDescription = styled.p`
+export const CardDescription  = styled.p`
   width: 100%;
-
+  height: 48px;
   color: ${({theme}) => theme.COLORS.Light_400};
   text-align: center;
   font-family: Roboto;
   font-size: 14px;
   font-weight: 400;
   line-height: 160%;
-  text-overflow: clip;
+  overflow: hidden;
   @media (max-width: 999px) {
       display: none;
   }
 `;
 
-export const CardPrice = styled.p`
+export const CardPrice  = styled.p`
   width: 124px;
 
   color: ${({theme}) => theme.COLORS.Cake_200};
   font-family: Roboto;
   text-align: center;
-  font-size: 16px;
+  font-size: 24px;
   font-weight: 400;
   line-height: 100%;
 `;

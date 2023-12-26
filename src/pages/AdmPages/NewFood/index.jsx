@@ -108,8 +108,8 @@ export function NewFood() {
         { label: 'Refeições', value: 'Refeições' },
         { label: 'Pratos principais', value: 'Pratos principais' },
         { label: 'Saladas', value: 'Saladas' },
+        { label: 'Sobremesas', value: 'Sobremesas' },
         { label: 'Bebidas', value: 'Bebidas' },
-        
     ];
     
 

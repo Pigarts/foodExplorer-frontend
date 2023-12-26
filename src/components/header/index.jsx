@@ -18,13 +18,12 @@ export function Header() {
     const [ searchFoods, setSearchFoods] = useState([])
     const [ search, setSearch] = useState("")
     const [ cartIndex, setCartIndex ] = useState([])
-    const { cartData, screenCart } = useAuth();
+    const { user, signOut, screenCart } = useAuth();
 
-    const {user, signOut}  = useAuth();
+    const {}  = useAuth();
     const isAdmin = user.adm;
     const navigate = useNavigate()
-    
-    
+        
     function handleSignOut() {
       navigate("/")
       signOut()
@@ -33,11 +32,17 @@ export function Header() {
     function handleDetails(id) {
       navigate(`/food/${id}`)
     }
-    
-    useEffect(() => {
-        setCartIndex(screenCart.length)
 
-      }, [screenCart])
+    useEffect(() => {
+      if(!screenCart || screenCart == "[]") {
+        console.log("zero")
+        setCartIndex(0)
+        return
+      }
+      setCartIndex(screenCart.length)
+      return
+    }, [screenCart])
+
     useEffect(() => {
       if(search.length > 0 ) {
 
@@ -45,7 +50,6 @@ export function Header() {
                 const response = await api.get(`/foods?search=${search}`);
                 setSearchFoods(response.data);
                 }
-            
                 fetchFoods()} else {
                   setSearchFoods("")
             }
@@ -62,8 +66,7 @@ export function Header() {
          <Search icon={Icon_search}
           placeholder="Busque por pratos ou ingredientes" 
           onChange={e => setSearch(e.target.value)}>
-
-          </Search>
+        </Search>
           { searchFoods && 
             <SearchBox>
               {
@@ -81,9 +84,16 @@ export function Header() {
               }
             </SearchBox> 
           }
-          <>{isAdmin ? <Button  className="2 new" title={`Novo prato`} onClick={() => navigate("/newFood")}> </Button> :  <><TextButton className="likeds" title={"Meus favoritos"} onClick={() => navigate("/likeds")}/> <Button className="cart"  icon={Icon_Receipt} title={`Pedidos (${cartIndex})`}/></>}</>  <IconButton icon={Icon_LogOut} onClick={handleSignOut}/>
+          <>{
+          isAdmin ? <>  <TextButton className="ordersHistory" title={"Histórico de pedidos"} onClick={() => navigate("/ordershistory")}/> <Button  className="2 new" title={`Novo prato`} onClick={() => navigate("/newFood")}> </Button></> : 
+           <>
+           <TextButton className="likeds" title={"Meus favoritos"} onClick={() => navigate("/likeds")}/>
+           <TextButton className="ordersHistory" title={"Histórico de pedidos"} onClick={() => navigate("/ordershistory")}/>
+           <Button className="cart" onClick={() => navigate("/cart")} icon={Icon_Receipt} title={`Pedidos (${cartIndex})`}/></>
+           }</>
+           <IconButton icon={Icon_LogOut} onClick={handleSignOut}/>
         </Desktop>
-        <></>
+     
     </Container>
  )
 }

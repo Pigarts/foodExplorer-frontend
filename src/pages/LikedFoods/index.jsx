@@ -11,43 +11,57 @@ import { useAuth } from "../../hooks/auth"
 
 export function LikedFoods() {
   const [foods, setFoods] = useState([]);
-  const { user } = useAuth()
-  const navigate = useNavigate()
+  const [displayedFoods, setDisplayedFoods] = useState([]);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
+  function handleDetails(id) {
+    navigate(`/food/${id}`);
+  }
 
-    function handleDetails(id) {
-      navigate(`/food/${id}`)
+  useEffect(() => {
+    async function fetchAllFood() {
+      const response = await api.get(`/foods/likeds?user=${user.id}`);
+      setFoods(response.data);
+      setDisplayedFoods(response.data);
     }
 
-      useEffect(() => {
-        async function fetchAllFood() {
-            const response = await api.get(`/foods/likeds?user=${user.id}`)
-            setFoods(response.data)
+    fetchAllFood();
+  }, [user.id]);
+
+  useEffect(() => {
+    setDisplayedFoods(foods);
+  }, [foods]);
+
+  async function handleRemoveItem(id) {
+    await api.delete(`/foods/unLike?user=${user.id}&food=${id}`);
+    const updatedDisplayedFoods = displayedFoods.filter((food) => food.id !== id);
+    setDisplayedFoods(updatedDisplayedFoods);
+  }
+
+  return (
+    <Container>
+      <Header />
+      <Content>
+        
+        {
+          displayedFoods.length >= 1 ?<> <h2>Meus favoritos</h2> <FoodContainer>
+          {displayedFoods &&
+            displayedFoods.map((food, index) => (
+              <SimpleFoodCard
+                key={index}
+                imageSrc={`${api.defaults.baseURL}/files/${food.img}`}
+                title={`${food.name}`}
+                id={food.id}
+                onImageClick={() => handleDetails(food.id)}
+                unLike={() => handleRemoveItem(food.id)}
+              />
+            ))}
+        </FoodContainer> </>: <div className="center"> <h2>Nenhum item favoritado</h2></div> 
         }
-        fetchAllFood()
-      }, [foods])
-    
-    return (
-        <Container>
-            <Header/>
-            <Content>
-            <h2>Meus favoritos</h2>
-            <FoodContainer>
-            {
-              foods &&(
-              foods.map((food, index) => (
-                      <SimpleFoodCard
-                        key={index}
-                        imageSrc={`${api.defaults.baseURL}/files/${food.img}`}
-                        title={`${food.name}`}
-                        id={food.id}
-                        onImageClick={() => handleDetails(food.id)}
-                      />
-                    )))
-            }
-            </FoodContainer>
-            </Content>
-         <Footer/>
-        </Container>
-    )
+        
+      </Content>
+      <Footer />
+    </Container>
+  );
 }

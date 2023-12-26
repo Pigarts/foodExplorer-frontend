@@ -9,14 +9,13 @@ import { AdmFoodCard } from "../../../components/admFoodCard"
 import { useEffect, useState } from "react"
 import { api } from "../../../services/api"
 
-import foodImg from "../../../assets/Dish.png"
-
-
 export function Home() {
     
     const [categories, setCategories] = useState([]);
     const [foods, setFoods] = useState({});
     const navigate = useNavigate()
+
+    const desiredOrder = ["Refeições", "Saladas", "Pratos principais", "Sobremesas", "Bebidas"];
 
     function handleDetails(id) {
       navigate(`/food/${id}`)
@@ -52,27 +51,27 @@ export function Home() {
             <FoodContainer>
             {
   categories &&
-  categories.map((category, index) => {
+  desiredOrder
+    .filter(category => categories.includes(category))
+    .map((category, index) => {
+      const filteredFoods = Array.isArray(foods) ? foods.filter((food) => food.category === category) : [];
 
-    const filteredFoods = Array.isArray(foods) ? foods.filter((food) => food.category === category) : [];
-
-    return (
-      <Section key={index} title={category}>
-        {filteredFoods.map((filteredFood, foodIndex) => (
-          <AdmFoodCard
-            key={foodIndex}
-            imageSrc={`${api.defaults.baseURL}/files/${filteredFood.img}`}
-            title={`${filteredFood.name} >`}
-            description={filteredFood.descriptions}
-            price={`R$ ${filteredFood.price}`}
-            id={filteredFood.id}
-            onImageClick={() => handleDetails(filteredFood.id)}
-            
-          />
-        ))}
-      </Section>
-    );
-  })
+      return (
+        <Section key={index} title={category}>
+          {filteredFoods.map((filteredFood, foodIndex) => (
+            <AdmFoodCard
+              key={foodIndex}
+              imageSrc={`${api.defaults.baseURL}/files/${filteredFood.img}`}
+              title={`${filteredFood.name} >`}
+              description={filteredFood.descriptions}
+              price={`R$ ${filteredFood.price}`}
+              id={filteredFood.id}
+              onImageClick={() => handleDetails(filteredFood.id)}
+            />
+          ))}
+        </Section>
+      );
+    })
 }
             
             </FoodContainer>

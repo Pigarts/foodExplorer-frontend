@@ -15,7 +15,7 @@ export function FoodDetails() {
     
     const [food, setFood] = useState({});
     const [likeIcon, setLikeIcon] = useState(false);
-    const [foodsValue, setFoodsValue] = useState(0);
+    const [foodsValue, setFoodsValue] = useState(1);
     const [ cartIndex, setCartIndex ] = useState([])
     const  { user, addToCart, removeFromCart }  = useAuth();
 
@@ -42,7 +42,7 @@ export function FoodDetails() {
             let numberPrice = parseFloat(replace)
             
             const item = {
-                    name: food.title,
+                    name: food.name,
                     quantity: Number(foodsValue),
                     price: price,
                     total_price: ( numberPrice * Number(foodsValue)),
@@ -93,7 +93,7 @@ export function FoodDetails() {
                         </Tags>
                         <div className="addLine">
                         <Counter foods={foodsValue} onFoodsChange={handleFoodsValueChange}/>
-                        <Button className="order" icon={Icon_Receipt} onClick={handleAddButton} title={ `Incluir ∙ R$${(foodsValue * food.price)}` }/>
+                        <Button className="order" icon={Icon_Receipt} onClick={handleAddButton} title={foodsValue === 0 ? "Remover" : `Incluir ∙ R$${(foodsValue * food.price)}` }/>
                         </div>
                         </div>
                         

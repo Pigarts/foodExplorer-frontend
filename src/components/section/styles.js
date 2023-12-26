@@ -25,10 +25,6 @@ width: 100%;
 position: relative;
 `
 export const Content = styled.div`
-@media (max-width: 999px) {
-
-}
-
   
 margin-top: 24px;
 display: flex;
@@ -46,7 +42,7 @@ height: 95%;
 width: 278px;
 background: linear-gradient(90deg, ${({theme}) => theme.COLORS.Dark_400} 0%, rgba(255,255,255,0) 100%);
 left: -1px;
-z-index: 4;
+z-index: 1;
 
 display: flex;
 align-items: center;
@@ -68,7 +64,7 @@ width: 278px;
 height: 95%;
 background: linear-gradient(-90deg, ${({theme}) => theme.COLORS.Dark_400} 0%, rgba(255,255,255,0) 100%);
 right: -1px;
-z-index: 4;
+z-index: 1;
 
 display: flex;
 align-items: center;

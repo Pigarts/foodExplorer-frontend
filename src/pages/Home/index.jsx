@@ -15,6 +15,7 @@ export function Home() {
   const [foods, setFoods] = useState({});
   const navigate = useNavigate()
 
+  const desiredOrder = ["Refeições", "Saladas", "Pratos principais", "Sobremesas", "Bebidas"];
 
     function handleDetails(id) {
       navigate(`/food/${id}`)
@@ -51,12 +52,15 @@ export function Home() {
             <FoodContainer>
             
             {
-  categories &&
-  categories.map((category, index) => {
-    const filteredFoods = Array.isArray(foods) ? foods.filter((food) => food.category === category) : [];
-    return (
-      <Section key={index} title={category}>
-        {filteredFoods.map((filteredFood, foodIndex) => (
+ categories &&
+ desiredOrder
+   .filter(category => categories.includes(category))
+   .map((category, index) => {
+     const filteredFoods = Array.isArray(foods) ? foods.filter((food) => food.category === category) : [];
+
+     return (
+       <Section key={index} title={category}>
+         {filteredFoods.map((filteredFood, foodIndex) => (
           <FoodCard
             key={foodIndex}
             like={0}
@@ -66,6 +70,8 @@ export function Home() {
             price={`R$ ${filteredFood.price}`}
             id={filteredFood.id}
             onImageClick={() => handleDetails(filteredFood.id)}
+            foodImg={filteredFood.img}
+            foodName={filteredFood.name}
           />
         ))}
       </Section>

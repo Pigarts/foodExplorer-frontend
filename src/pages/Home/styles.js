@@ -3,17 +3,15 @@ import styled from "styled-components"
 export const Container = styled.div`
 display: flex;
 flex-direction: column;
-
+overflow-x: hidden;
 width: 100svw;
 height: 100vh;
 `
 
 export const Content = styled.div`
 padding: 15px 24px ;
+flex: 1;
 
-@media (max-width: 999px) {
-  //height: 100%;    
-  }
 `
 
 export const CardBox = styled.div`

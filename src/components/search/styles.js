@@ -2,6 +2,7 @@ import { styled }  from "styled-components";
 
 
 export const Container = styled.div`
+position: relative;
 width: 100%;
 height: 100%;
 display: flex;
@@ -29,7 +30,7 @@ background-color:  ${({theme}) => theme.COLORS.Dark_900};
 `
 
 export const SearchBox = styled.div`
-width: 90%;
+width: 98%;
 height: fit-content;
 background-color: ${({theme}) => theme.COLORS.Dark_600};
 position: absolute;
@@ -40,13 +41,18 @@ gap: 10px;
 padding: 5px;
 margin: 10px;
 z-index: 7;
-top: 200px;
-left: 3%;
-
+top: 60px;
+left: 0;
+ :hover{
+    background-color: ${({theme}) => theme.COLORS.Dark_400};
+ }
 @media (min-width: 999px) {
+    position: absolute;
     top: 107px;
-    left: 30%;
-    width: 500px;
+    left: 0;
+    width: 97%;
+    min-width: max-content;
+    padding-right: 10px;
 
 }
 `

@@ -4,7 +4,7 @@ import { Icon_Minus, Icon_Plus } from "../Icons"
 import { useState } from "react"
 
 export function Counter({foods, onFoodsChange}) {
-    
+
     function handlePlusButton() {
         onFoodsChange(foods + 1);
     }

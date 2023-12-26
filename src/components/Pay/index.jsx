@@ -1,0 +1,134 @@
+import { Button } from "../button"
+import { Container } from "./styles"
+import { Icon_Pix, Icon_Card, Icon_Receipt, Icon_Clock  ,Icon_Check  ,Icon_Fork } from "../Icons"
+import { useState, useEffect } from 'react';
+import { Input } from "../input"
+import QRCode from 'qrcode';
+import { useAuth } from "../../hooks/auth";
+import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+
+export function Pay( toPay ) {
+    const [selectedButton, setSelectedButton] = useState("card");
+    const [qrCodeURL, setQrCodeURL] = useState('');
+    const { screenCart, pay, payment, clearCart } = useAuth()
+    const [cartValue, setCartValue ] = useState([])
+    const navigate = useNavigate()
+
+    const [cardNumber, setCardNumber] = useState('');
+    const [expiry, setExpiry] = useState('');
+    const [cvc, setCvc] = useState('');
+    
+    const handleCardNumberChange = (e) => {
+        const inputValue = e.target.value.replace(/[^0-9]/g, '');
+        let formattedValue = inputValue.slice(0, 16);
+        if (/^\d{4}/.test(formattedValue)) {
+          formattedValue = formattedValue.replace(/(\d{4})/g, '$1-').slice(0, 19);;
+        }
+        setCardNumber(formattedValue);
+      };
+
+      const handleExpiryChange = (e) => {
+        const inputValue = e.target.value.replace(/[^0-9]/g, '');
+        let formattedValue = inputValue.slice(0, 16);
+        if (/^\d{4}/.test(formattedValue)) {
+          formattedValue = formattedValue.replace(/(\d{2})/g, '$1/').slice(0, 19);;
+        }
+        setExpiry(formattedValue.slice(0, 5));
+      };
+    
+      const handleCvcChange = (e) => {
+        const inputValue = e.target.value.replace(/[^0-9]/g, '');
+        let formattedValue = inputValue.slice(0, 3);
+        if (/^\d{4}/.test(formattedValue)) {
+          formattedValue = formattedValue.slice(0, 3);;
+        }
+        setCvc(formattedValue);
+      };
+
+    function handleSelected(id) {
+        setSelectedButton(id)
+    }
+
+    async function handlePayButton(event) {
+      event.preventDefault()
+      const cardInfos = {cardNumber, expiry, cvc,}
+      pay(cardInfos)
+    }          
+    
+    const content = {
+        '0': <>{ 
+            selectedButton == "pix" ? <img src={qrCodeURL} onClick={() => {pay("pix")}} alt="qrCode para pagamento via pix" title="Clique para simular confirmação de pagamento" /> : 
+            <>
+              <form action="">
+<div className="credit">
+            <Input
+        required 
+        title={"Número do Cartão"}
+        value={cardNumber}
+        onChange={handleCardNumberChange}
+      />
+      <div className="line">
+        <Input
+          required 
+          title={"Validade"}
+          value={expiry}
+          onChange={handleExpiryChange}
+        />
+        <Input
+          required 
+          title={"CVC"}
+          value={cvc}
+          onChange={handleCvcChange}
+        />
+            </div>
+            <Button preventdefault="true" type="submit" icon={Icon_Receipt} title={"Finalizar pagamento"} onClick={handlePayButton}/>
+            </div>
+              </form>
+            </>
+        }</>,
+        '1': <> <div className="status">
+            <Icon_Clock/> <h3>Aguardando pagamento no caixa</h3></div> </>,
+        '2': <> <div className="status">
+            <Icon_Check/> <h3>Pagamento aprovado!</h3></div> </>,
+        '3': <> <div className="status">
+            <Icon_Fork/> <h3>Pedido entregue!</h3></div> </>,
+      };
+
+    useEffect(() => {
+        const totalCartValue = screenCart.reduce((total, item) => total + item.total_price, 0);
+        setCartValue(totalCartValue.toFixed(2));
+      }, [screenCart])
+
+    useEffect(() => {
+        const dados = `http://localhost:5173/${cartValue}`;
+    
+        const opcoes = {
+          errorCorrectionLevel: 'H',
+          type: 'image/png',
+          quality: 0.92,
+          margin: 1,
+          color: {
+            dark: '#000000',
+            light: '#ffffff'
+          }
+        };
+    
+        QRCode.toDataURL(dados, opcoes, (err, url) => {
+          if (err) throw err;
+          setQrCodeURL(url);
+        });
+      }, [screenCart]);
+    return (
+        <Container>
+            <div className="method">
+            <Button className={selectedButton == 'pix'  ? 'selected' : 'pix'} icon={Icon_Pix} title={"Pix"} onClick={() => handleSelected("pix")}/>  
+            <Button className={selectedButton == 'card'  ? 'selected' : 'card'} icon={Icon_Card} title={`Crédito`} onClick={() => handleSelected("card")}/>
+            </div>
+         
+            <div className="payment">
+                {content[payment]}
+            </div>
+        </Container>
+    )
+}

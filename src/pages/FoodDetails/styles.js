@@ -31,6 +31,7 @@ div.foodInfos {
    align-items: center;
    p  {
       text-align: center;
+      width: 100%;
    }
 }
 

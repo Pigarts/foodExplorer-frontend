@@ -9,6 +9,7 @@ export const CardBackground = styled.div`
 bottom: 0;
 display: flex;
 width: 100%;
+min-width: 380px;
 height: 120px;
 
 border: none;

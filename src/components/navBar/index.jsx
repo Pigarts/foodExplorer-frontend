@@ -29,10 +29,16 @@ export function NavBar() {
             <Search icon={Icon_search} placeholder="Busque por pratos ou ingredientes"/>
           <ul>
             {
-             isAdmin && 
+             isAdmin && <>
              <li><Link to="/newFood"><span>Novo prato</span></Link></li>
+             </>
+
             }
+            <li><Link to="/ordershistory"><span>Histórico de pedidos</span></Link></li>
+            {
+             !isAdmin && 
             <li><Link to="/likeds"><span>Meus favoritos</span></Link></li>
+            }
             <li><Link onClick={handleSignOut} to="/"><span>Sair</span></Link></li>
           </ul>
           </Content>

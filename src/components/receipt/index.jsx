@@ -2,17 +2,25 @@ import { Container } from "./styles";
 import { useEffect, useState } from "react";
 import {Icon_Receipt } from "../Icons";
 import { useAuth } from "../../hooks/auth";
+import { useNavigate } from "react-router-dom";
 
 export function Receipt() {
     const [ cartIndex, setCartIndex ] = useState([])
-    const { cartData, screenCart } = useAuth();
+    const { screenCart } = useAuth();
+    const navigate = useNavigate()
 
     useEffect(() => {
-        setCartIndex(screenCart.length)
-      }, [screenCart])
+      if(!screenCart || screenCart == "[]") {
+        console.log("zero")
+        setCartIndex(0)
+        return
+      }
+      setCartIndex(screenCart.length)
+      return
+    }, [screenCart])
 
     return(
-        <Container> 
+        <Container onClick={() => navigate("/cart")}> 
         <div className="IconBox">
             <div className="SpanBackground"><span>{cartIndex}</span></div>
             <Icon_Receipt/>

@@ -11,7 +11,6 @@ border: ${({theme, $isNew}) => $isNew ? `1px dashed ${theme.COLORS.Light_500}` :
 border-radius: 10px;
 padding-right: 16px;
 
-
 >button {
     border: none;
     background: none;

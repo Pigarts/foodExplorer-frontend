@@ -24,7 +24,8 @@ export const Content = styled.div`
 display: flex;
 flex-direction: column;
 align-items: flex-start;
-padding: 32px 24px ;
+padding: 40px 123px;
+flex: 1;
 
 `
 
@@ -110,8 +111,6 @@ export const ImgUpload = styled.div`
 height: 56px;
 padding: 12px 32px;
 border-radius: 10px;
-margin-top: 8px;
-margin-bottom: 8px;
 background-color:  ${({theme}) => theme.COLORS.Dark_800};
 cursor: pointer;
 

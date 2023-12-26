@@ -126,8 +126,8 @@ export function EditFood() {
         { label: 'Refeições', value: 'Refeições' },
         { label: 'Pratos principais', value: 'Pratos principais' },
         { label: 'Saladas', value: 'Saladas' },
+        { label: 'Sobremesas', value: 'Sobremesas' },
         { label: 'Bebidas', value: 'Bebidas' },
-      
     ];
     
     useEffect(() => {
@@ -196,7 +196,7 @@ export function EditFood() {
                             }
                         </TagBox>
                     </div>
-                        <Input title={"Preço"} placeholder="R$ 00,00" type="number"
+                        <Input id="price" title={"Preço"} placeholder="R$ 00,00" type="number"
                         defaultValue={food.price}
                         onChange={e => setPrice(e.target.value)}/> 
                 </div>

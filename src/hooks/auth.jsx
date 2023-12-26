@@ -7,6 +7,8 @@ function AuthProvider({children}) {
 
     const [data, setData] = useState({});
     const [screenCart, setScreenCart] = useState([]);
+    const [payment, setPayment] = useState("0");
+    const [paymentStatus, setPaymentStatus] = useState("Pendente")
 
     async function signIn({email, password}) {
         try {
@@ -26,13 +28,89 @@ function AuthProvider({children}) {
         }
     }
 
-    let cart = JSON.parse(localStorage.getItem("@foodExplorer:cart")) || [];
+    function signOut() {
+        localStorage.removeItem("@foodExplorer:token");
+        localStorage.removeItem("@foodExplorer:user");
+        localStorage.removeItem("@foodExplorer:cart")
+        setData({});
+    }
 
+    let cart = JSON.parse(localStorage.getItem("@foodExplorer:cart")) || [];
+    
+    async function pay(paymentMethod) {
+        const totalCartValue = screenCart.reduce((total, item) => total + item.total_price, 0);
+        const cartValue = totalCartValue.toFixed(2);
+        const data = {
+            paymentMethod, order: screenCart, cartValue
+        }
+        setPayment("1")
+        try {
+            const response = await api.post("/orders", { data });
+                    if (response.status == 201) {
+                    async function getStatus() {
+                        try {
+                            const response = await api.get("/orders/orderstatus");
+                            const status = response.data;
+                            console.log(status);
+                            setPaymentStatus(status);
+
+                            if (status === "Preparando") {
+                                setPayment("2")
+                                console.log("A repetição foi interrompida devido à condição.");
+                            }
+
+                            if (status === "Entregue") {
+                                setPayment("3")
+                                clearInterval(fetchInterval);
+                                console.log("A repetição foi interrompida devido à condição.");
+                                clearCart()
+                            }
+
+                        } catch (error) {
+                            console.error("Erro ao obter o status:", error);
+                        }
+                    }
+                    
+                    let fetchInterval = setInterval(getStatus, 1000);
+                    }  
+
+          } catch (error) {
+            console.error("Erro ao fazer a requisição:", error);
+          }
+    }
+    
+    function addToCart(item) {
+        const existingItemIndex = cart.findIndex(cartItem => cartItem.id === item.id);
+
+        if (existingItemIndex !== -1) {
+            cart[existingItemIndex].quantity += item.quantity;
+        } else {
+            cart.push(item);
+        }
+        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
+        setScreenCart(cart)
+    }
+
+    function removeFromCart(itemToRemove) {
+        cart = cart.filter(item => item.id !== itemToRemove.id);
+        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
+        setScreenCart(cart)
+    }
+
+    function clearCart() {
+        cart = []
+        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
+        setScreenCart(cart)
+    }
+    
     useEffect(() => {
         const token = localStorage.getItem("@foodExplorer:token")
         const user = localStorage.getItem("@foodExplorer:user")
+        if(!localStorage.getItem('@foodExplorer:cart')) {
+            localStorage.setItem('@foodExplorer:cart', JSON.stringify([]))
+        }
         cart = localStorage.getItem("@foodExplorer:cart")
-
+        
         if(token && user) {
             api.defaults.headers.common["authorization" ] = `Bearer ${token}`;
             
@@ -43,29 +121,16 @@ function AuthProvider({children}) {
                 }
                 )
             }
-           
+        }, [])
+
+    useEffect(() => {
+        function attCart() {
+            setScreenCart(JSON.parse(cart))
+        }
+        attCart()
     }, [])
-
-    function signOut() {
-        localStorage.removeItem("@foodExplorer:token");
-        localStorage.removeItem("@foodExplorer:user");
-        localStorage.removeItem("@foodExplorer:cart")
-        setData({});
-    }
-
-    function addToCart(item) {
-        cart.push(item);
-        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
-        setScreenCart(cart)
-    }
-
-    function removeFromCart(itemToRemove) {
-        cart = cart.filter(item => item.id !== itemToRemove.id);
-        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
-        setScreenCart(cart)
-    }
     return(
-        <AuthContext.Provider value={{signIn, signOut, addToCart, removeFromCart, user: data.user, cartData: data.cartData, screenCart}}>
+        <AuthContext.Provider value={{signIn, signOut, pay, payment, addToCart, removeFromCart, clearCart, user: data.user, screenCart}}>
             {children}
         </AuthContext.Provider>
     )
@@ -75,6 +140,5 @@ function useAuth() {
     const context = useContext(AuthContext);
     return context
 }
-
 
 export { AuthProvider, useAuth };

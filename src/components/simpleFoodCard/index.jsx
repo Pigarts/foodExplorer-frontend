@@ -5,14 +5,12 @@ import { api } from "../../services/api";
 import { TextButton } from "../textButton";
 
 
-export function SimpleFoodCard({ imageSrc, title, id, onImageClick }) {
+export function SimpleFoodCard({ imageSrc, title, id, onImageClick, unLike }) {
 
 
         const  { user }  = useAuth();
 
-        async function unLike() {
-                await api.delete(`/foods/unLike?user=${user.id}&food=${id}`)
-        }
+        
               
         return (
                 <CardContent>

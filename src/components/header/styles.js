@@ -60,25 +60,36 @@ button.likeds {
   min-width: 104px;
   color: ${({theme}) => theme.COLORS.Light_300}
 }
+button.ordersHistory {
+  min-width: 145px;
+  color: ${({theme}) => theme.COLORS.Light_300}
+}
+
+input{
+  background-color: aqua;
+  position: relative;
+}
 @media (max-width: 999px) {
     display: none;
-    
   }
 `
 
 export const SearchBox = styled.div`
-width: 500px;
-height: fit-content;
-background-color: ${({theme}) => theme.COLORS.Dark_600};
 position: absolute;
-top: 107px;
-left: 30%;
-overflow-y: auto;
+
 display: flex;
+overflow-y: auto;
 flex-direction: column;
 gap: 10px;
 padding: 5px;
+width: 500px;
+height: fit-content;
+
 z-index: 7;
+
+background-color: red;
+padding: 20px;
+//background-color: ${({theme}) => theme.COLORS.Dark_600};
 `
 
 export const FoodBox = styled.div`
