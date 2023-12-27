@@ -14,10 +14,12 @@ export const Content = styled.div`
 padding: 37px  56px 24px 56px ;
 display: flex;
 flex-direction: column;
+flex: 1;
 
-height: 100%;
+
 @media (min-width: 999px) {
-   padding: 25px 130px ;
+   padding: 25px 130px;
+
 }
 
 `

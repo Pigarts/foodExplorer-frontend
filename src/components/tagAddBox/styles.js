@@ -25,12 +25,10 @@ padding-right: 16px;
 }
 
 >input{ 
-    min-width: 100px;
-    width: 100px;
     padding: 10px 16px;
-   
+    width: 100px;
     color: ${({theme }) => theme.COLORS.Light_100};
-
+    //width: ${({$isNew}) => $isNew ?  "100px" : "auto" };
     background: transparent;
     border: none;
     outline: none;

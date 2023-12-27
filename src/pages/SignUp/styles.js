@@ -19,7 +19,7 @@ background-color: ${({theme}) => theme.COLORS.Dark_400};
 
 @media (min-width: 1000px) {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     
   }

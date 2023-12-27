@@ -8,7 +8,7 @@ overflow-x: hidden;
 
 background-color: ${({theme}) => theme.COLORS.RED_1};
 width: 100svw;
-height: 100svh;
+flex: 1;
 `
 export const Content = styled.div`
 padding: 37px  56px 24px 56px ;

@@ -121,14 +121,16 @@ export function NewFood() {
          <h1>Novo prato</h1>
             <Form>
                 <div className="line1">
+                <div className="column">
+                    <span>Imagem do prato</span>
                     <ImgUpload className={imgFile ? "done" : ""}>
                         <label htmlFor="uploadImg">
                         {imgFile ? <Icon_Done/> :<Icon_Upload/> } 
                         <span>{imgFile ? "Imagem selecionada" : "Selecione imagem"}</span>
-                        <Input id="uploadImg" type="file"
-                        onChange={handleChangeFoodImg}/> 
+                        <Input id="uploadImg" type="file" onChange={handleChangeFoodImg}/> 
                         </label>
                     </ImgUpload>
+                    </div>
                     <Input title={"Nome"} placeholder="Ex.: Salada Ceasar" type="text"
                     onChange={e => setName(e.target.value)}/> 
                     <Select options={options} onChange={handleSelectChange} title={"Categoria"}/>

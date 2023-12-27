@@ -160,6 +160,8 @@ export function EditFood() {
 
             <Form>
                 <div className="line1">
+                    <div className="column">
+                    <span>Imagem do prato</span>
                     <ImgUpload className={imgFile ? "done" : ""}>
                         <label htmlFor="uploadImg">
                         {imgFile ? <Icon_Done/> :<Icon_Upload/> } 
@@ -167,6 +169,7 @@ export function EditFood() {
                         <Input id="uploadImg" type="file" onChange={handleChangeFoodImg}/> 
                         </label>
                     </ImgUpload>
+                    </div>
                     <Input 
                     title={"Nome"}
                     placeholder="Ex.: Salada Ceasar"

@@ -26,6 +26,9 @@ flex-direction: column;
 align-items: flex-start;
 padding: 40px 123px;
 flex: 1;
+@media (max-width: 999px) {
+    padding: 35px 32px;
+}
 `
 
 export const Form = styled.form`
@@ -35,6 +38,26 @@ flex-direction: column;
 gap: 24px;
 span {
     color: ${({theme}) => theme.COLORS.Light_400};
+}
+
+div.line1>:nth-child(1) {
+    width: 100%;
+    @media (min-width: 999px) {
+    max-width: 229px;
+}
+}
+div.line1 div.column{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    span {
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; 
+    color: ${({theme}) => theme.COLORS.Light_400};
+}
 }
 
 div.line1, div.line2 {
@@ -52,7 +75,9 @@ div.ingredients {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    
+    @media (max-width: 999px) {
+    width: 100%;
+}
 }
 @media (min-width: 999px) {
     >div.line1 {
@@ -62,8 +87,7 @@ div.ingredients {
         width: 100%;
         gap: 32px;
         >:nth-child(3) {
-            min-width: 364px;
-            
+            max-width: 364px; 
         }
     }
     >div.line2 {
@@ -75,9 +99,12 @@ div.ingredients {
         gap: 32px;
         div.ingredients {
             width: 100%;
+            overflow: auto;
         }
         >:nth-child(2) {
-            width: 351px;
+            width: 251px;
+            min-width: 251px;
+
         }
     }
    >div.line3 {
@@ -129,6 +156,7 @@ justify-content: flex-start;
 padding: 8px;   
 gap: 24px;
 overflow-x:  auto;
+border-radius: 8px;
 `
 
 export const ImgUpload = styled.div`
@@ -136,7 +164,6 @@ export const ImgUpload = styled.div`
 height: 56px;
 padding: 12px 32px;
 border-radius: 10px;
-margin-top: 8px;
 
 background-color:  ${({theme}) => theme.COLORS.Dark_800};
 cursor: pointer;
