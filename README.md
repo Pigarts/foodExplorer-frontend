@@ -609,9 +609,9 @@ Ao carregar da pág*ina é feita a tentativa de recuperação de cart que é a v
 
     Se existirem resultados, mapeia cada item em searchFoods e renderiza um FoodBox para cada item. O FoodBox contém: 
 
-    Uma imagem do prato (<img>) obtida da API. 
+    Uma imagem do prato (img) obtida da API. 
 
-    O nome do prato (<h2>). 
+    O nome do prato (h2). 
 
     Se o prato possuir ingredientes cujo o nome seja igual a pesquisa do usuário, exibe uma Tag com o título "Ingrediente" e os ingredientes correspondentes. 
 
