@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { useAuth } from "../../hooks/auth"
+import { useAuth } from "../../../hooks/auth"
 import { Container, LogoBox, Form } from "./styles"
-import { Logo } from "../../components/Logo"
-import {Input} from "../../components/input"
-import {Button} from "../../components/button"
-import { TextButton } from "../../components/textButton"
+import { Logo } from "../../../components/Logo"
+import { Input } from "../../../components/input"
+import { Button }  from "../../../components/button"
+import { TextButton } from "../../../components/textButton"
 import { useNavigate } from "react-router-dom"
 
 export function Login() {

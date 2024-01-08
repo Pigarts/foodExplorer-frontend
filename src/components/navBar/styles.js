@@ -11,7 +11,6 @@ export const SidebarWrapper = styled.div`
   z-index: 5;
 
   scroll-behavior: none;
-
 `;
 
 export const Button = styled.button`
@@ -42,12 +41,18 @@ height: 114px;
 `
 export const Content = styled.div`
  padding: 24px 36px;
+
+ ul {
+  list-style: none;
+ }
+
  a{
     display: flex;
     width: 100%;
     padding: 10px;
     border-bottom: 1px solid ${({theme}) => theme.COLORS.Dark_1000};
  }
+
  span{
      font-family: Poppins;
      font-size: 24px;

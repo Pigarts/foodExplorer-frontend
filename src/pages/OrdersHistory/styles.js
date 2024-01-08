@@ -69,7 +69,8 @@ table {
     line-height: 160%;
     color: ${({theme}) => theme.COLORS.Light_400};
   }
-
+  select {
+    min-width: max-content;  }
 }
 
 td:nth-child(1){
@@ -124,12 +125,11 @@ div.Entregue{
 export const Card = styled.div`
 display: flex;
 flex-direction: column;
-padding: 8px 20px;
+padding: 24px;
 
-min-width: fit-content;
-max-width: max-content;
+width: 358px;
 
-color: ${({theme}) => theme.COLORS.Light_300};
+color: ${({theme}) => theme.COLORS.Light_400};
 font-family: Roboto;
 font-size: 14px;
 font-weight: 400;
@@ -141,7 +141,7 @@ border: 2px solid ${({theme}) => theme.COLORS.Dark_1000};
  div.flex{
   display: flex;
   align-items: center;
-  gap: 31px;
+  gap: 10px;
   margin-bottom: 16px;
 
   div.flex2{
@@ -152,7 +152,7 @@ border: 2px solid ${({theme}) => theme.COLORS.Dark_1000};
  } 
 
  p{
-  min-height: 47px;
+
  }
 
  @media (min-width: 999px) {

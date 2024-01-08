@@ -9,7 +9,7 @@ height: 100vh;
 `
 
 export const Content = styled.div`
-padding: 15px 24px ;
+padding:  34px 123px ;
 display: flex;
 flex-direction: row;
 justify-content: space-evenly;

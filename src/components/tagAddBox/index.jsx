@@ -15,6 +15,5 @@ import {Container} from "./styles"
             {$isNew ? "+" : "x"} 
             </button>
         </Container>
-
     )
 }

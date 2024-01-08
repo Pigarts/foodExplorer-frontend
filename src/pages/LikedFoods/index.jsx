@@ -1,12 +1,11 @@
 import { Header } from "../../components/header"
-import { Container, Content, FoodContainer } from "./styles"
-import { SimpleFoodCard } from "../../components/simpleFoodCard"
-import { FoodCard } from "../../components/foodCard"
+import { Container, Content, FoodContainer, CardContent ,CardImage, ImgButton, CardTitle } from "./styles"
 import { Footer } from "../../components/footer"
 import { useEffect, useState } from "react"
 import { api } from "../../services/api"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../hooks/auth"
+import { TextButton } from "../../components/textButton"
 
 
 export function LikedFoods() {
@@ -43,23 +42,23 @@ export function LikedFoods() {
     <Container>
       <Header />
       <Content>
-        
         {
           displayedFoods.length >= 1 ?<> <h2>Meus favoritos</h2> <FoodContainer>
           {displayedFoods &&
             displayedFoods.map((food, index) => (
-              <SimpleFoodCard
-                key={index}
-                imageSrc={`${api.defaults.baseURL}/files/${food.img}`}
-                title={`${food.name}`}
-                id={food.id}
-                onImageClick={() => handleDetails(food.id)}
-                unLike={() => handleRemoveItem(food.id)}
-              />
-            ))}
+              <CardContent key={index}>
+                <ImgButton onClick={() => handleDetails(food.id)}>
+                <CardImage src={`${api.defaults.baseURL}/files/${food.img}`} alt="Imagem da comida" />
+                </ImgButton>
+                <div className="column">
+                <CardTitle>{`${food.name}`}</CardTitle>
+                <TextButton title={"Remover dos Favoritos"} onClick={() => handleRemoveItem(food.id)}/>
+                </div>
+                </CardContent>
+)
+            )}
         </FoodContainer> </>: <div className="center"> <h2>Nenhum item favoritado</h2></div> 
         }
-        
       </Content>
       <Footer />
     </Container>

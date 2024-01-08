@@ -11,8 +11,8 @@ import { TextBox } from "../../../components/textBox"
 import { Button } from "../../../components/button"
 import { useNavigate, useParams } from "react-router-dom"
 import { api } from "../../../services/api"
-import { AlertError } from "../../../components/alertError"
-import { NiceAlert } from "../../../components/niceAlert"
+import { Alert } from "../../../components/alert"
+
 
 export function EditFood() {
     const [food, setFood] = useState(null)
@@ -23,40 +23,28 @@ export function EditFood() {
     const [description, setDescription] = useState('');
     const [ingredients, setIngredients] = useState([])
     const [newIngredients, setNewIngredients] = useState("")
-    const [error, setError] = useState(false)
-    const [niceAlert, setNiceAlert] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
+    const [alert, setAlert] = useState(false)
+    const [alertType, setAlertType] = useState("error")
+    const [AlertMessage, setAlertMessage] = useState("")
     
     
     const navigate = useNavigate()
     const params = useParams()
     
-    function showError(message, type) {
-            if(type === "nice") {
-                console.log("nice")
-                setErrorMessage(message)
-                setNiceAlert(true)
+    function showAlert(message, type) {
+        setAlertMessage(message);
+        setAlertType(type);
+        setAlert(true);
 
-           setTimeout(function(){
-            setNiceAlert(false)
-           }, 2000);
-           return
-            }
+      }
 
-           setErrorMessage(message)
-           setError(true)
-
-           setTimeout(function(){
-              setError(false)
-           }, 2000);
-       }
     function goBack() {
         navigate(-1)
     }
     
     function handleAddIngredients(){
         if(newIngredients.length < 1) {
-            return alert("tag sem cnteúdo")
+            return showAlert("tag sem cnteúdo", "bad")
         }
         setIngredients(prevState => [...prevState, newIngredients]);
         setNewIngredients("");
@@ -73,10 +61,11 @@ export function EditFood() {
     }
     
     async function handleSaveButton() {
-        if(!name) {return  showError("O prato precisa de um nome") }
-        if(!category || category == 0) {return  showError("Selecione a categoria do prato") }
-        if(ingredients.length == 0) {return  showError("É preciso informar os ingredientes do prato") }
-        if(!price) {return  showError("O prato precisa de um preço") }  
+        if(!name) {return  showAlert("O prato precisa de um nome", "bad") }
+        if(!category || category == 0) {return  showAlert("Selecione a categoria do prato", "bad") }
+        if(ingredients.length == 0) {return  showAlert("É preciso informar os ingredientes do prato", "bad") }
+        if(!description) {return  showAlert("O prato precisa de uma descrição", "bad") }
+        if(!price) {return  showAlert("O prato precisa de um preço", "bad") }  
 
         const updates = { 
             img: imgFile,
@@ -95,10 +84,10 @@ export function EditFood() {
                 formData.append("food", JSON.stringify(updatedFood))
                 console.log(formData)
                 const response = await api.put("/foods/update", formData)
-                showError("Prato atualizado com sucesso!", "nice")
+                showAlert("Prato atualizado com sucesso!", "nice")
             } catch (error) {
                        if (error.response) {
-                           showError(error.response.data.message)
+                           showAlert(error.response.data.message, "bad")
                        } else {
                            console.error(error); 
                        }
@@ -112,7 +101,7 @@ export function EditFood() {
             navigate(-2)
                        } catch (error) {
                                   if (error.response) {
-                                      showError(error.response.data.message)
+                                      showAlert(error.response.data.message)
                                   } else {
                                       console.error(error); 
                                   }
@@ -149,6 +138,13 @@ export function EditFood() {
             setIngredients(food.foodIngredients.map(ingredient => ingredient.name));
         }
       }, [food]);
+
+      useEffect(() => {
+        let timeoutId;
+        if (alert) {
+          timeoutId = setTimeout(() => {setAlert(false);}, 2000);}
+        return () => clearTimeout(timeoutId);
+    }, [alert]);
     return (
         <Container>
          <Header/>
@@ -164,7 +160,7 @@ export function EditFood() {
                     <span>Imagem do prato</span>
                     <ImgUpload className={imgFile ? "done" : ""}>
                         <label htmlFor="uploadImg">
-                        {imgFile ? <Icon_Done/> :<Icon_Upload/> } 
+                        {imgFile ? <Icon_Done/> : <Icon_Upload/> } 
                         <span>{imgFile ? "Imagem selecionada" : "Selecione imagem"}</span>
                         <Input id="uploadImg" type="file" onChange={handleChangeFoodImg}/> 
                         </label>
@@ -210,8 +206,8 @@ export function EditFood() {
             <div className="buttons">
             <Button onClick={handleDeleteButton} title="Excluir prato"/> <Button onClick={handleSaveButton} title="Salvar alterações" loading={false}/> 
             </div>
-            <AlertError title={errorMessage} visible={error}/>
-            <NiceAlert title={errorMessage} visible={niceAlert}/>
+            <Alert title={AlertMessage} visible={alert} colorOption={alertType} />
+           
             </Form>
          )}
             

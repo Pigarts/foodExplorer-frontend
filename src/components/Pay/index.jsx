@@ -3,18 +3,14 @@ import { Container } from "./styles"
 import { Icon_Pix, Icon_Card, Icon_Receipt, Icon_Clock  ,Icon_Check  ,Icon_Fork } from "../Icons"
 import { useState, useEffect } from 'react';
 import { Input } from "../input"
-import QRCode from 'qrcode';
 import { useAuth } from "../../hooks/auth";
-import { api } from "../../services/api";
-import { useNavigate } from "react-router-dom";
+import QRCode from 'qrcode';
 
-export function Pay( toPay ) {
+export function Pay() {
     const [selectedButton, setSelectedButton] = useState("card");
     const [qrCodeURL, setQrCodeURL] = useState('');
-    const { screenCart, pay, payment, clearCart } = useAuth()
+    const { screenCart, pay, payment, } = useAuth()
     const [cartValue, setCartValue ] = useState([])
-    const navigate = useNavigate()
-
     const [cardNumber, setCardNumber] = useState('');
     const [expiry, setExpiry] = useState('');
     const [cvc, setCvc] = useState('');
@@ -30,9 +26,9 @@ export function Pay( toPay ) {
 
       const handleExpiryChange = (e) => {
         const inputValue = e.target.value.replace(/[^0-9]/g, '');
-        let formattedValue = inputValue.slice(0, 16);
+        let formattedValue = inputValue.slice(0, 4);
         if (/^\d{4}/.test(formattedValue)) {
-          formattedValue = formattedValue.replace(/(\d{2})/g, '$1/').slice(0, 19);;
+          formattedValue = formattedValue.replace(/(\d{2})/g, '$1/').slice(0, 5);;
         }
         setExpiry(formattedValue.slice(0, 5));
       };
@@ -52,7 +48,12 @@ export function Pay( toPay ) {
 
     async function handlePayButton(event) {
       event.preventDefault()
-      const cardInfos = {cardNumber, expiry, cvc,}
+      const cardInfos = {
+        cardNumber: cardNumber.replace(new RegExp("-", 'g'), ""), 
+        expiry: expiry.replace(new RegExp("/", 'g'), ""), 
+        cvc,
+      }
+      console.log(cardInfos)
       pay(cardInfos)
     }          
     
@@ -61,7 +62,7 @@ export function Pay( toPay ) {
             selectedButton == "pix" ? <img src={qrCodeURL} onClick={() => {pay("pix")}} alt="qrCode para pagamento via pix" title="Clique para simular confirmação de pagamento" /> : 
             <>
               <form action="">
-<div className="credit">
+                <div className="credit">
             <Input
         required 
         title={"Número do Cartão"}
@@ -83,7 +84,7 @@ export function Pay( toPay ) {
         />
             </div>
             <Button preventdefault="true" type="submit" icon={Icon_Receipt} title={"Finalizar pagamento"} onClick={handlePayButton}/>
-            </div>
+                </div>
               </form>
             </>
         }</>,
@@ -101,8 +102,9 @@ export function Pay( toPay ) {
       }, [screenCart])
 
     useEffect(() => {
-        const dados = `como o carrinho de compras foi projetado para usar o local storage, a interação por outros dispositivos, no caso o leitor de qr code, fica prejudicada/ou dificultada
-                      valor do carrinho: ${cartValue}`;
+        const dados = `valor do carrinho: ${cartValue}. 
+        Como o carrinho de compras foi projetado para usar o local storage, a interação por outros dispositivos, no caso o leitor de qr code, fica prejudicada/ou dificultada
+                      `;
     
         const opcoes = {
           errorCorrectionLevel: 'H',

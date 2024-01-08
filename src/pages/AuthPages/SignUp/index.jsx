@@ -1,13 +1,11 @@
 import { Container, LogoBox, Form } from "./styles"
-import { Logo } from "../../components/Logo"
-import {Input} from "../../components/input"
-import {Button} from "../../components/button"
-import { TextButton } from "../../components/textButton"
+import { Logo } from "../../../components/Logo"
+import {Input} from "../../../components/input"
+import {Button} from "../../../components/button"
+import { TextButton } from "../../../components/textButton"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import { api } from "../../services/api"
-
-
+import { api } from "../../../services/api"
 
 export function SignUp() {
     const [name, setName] = useState("");
@@ -15,7 +13,7 @@ export function SignUp() {
     const [password, setPassword] = useState("");
 
     const navigate =  useNavigate()
-
+  
     function handleLogin() {
         navigate("/")
     }

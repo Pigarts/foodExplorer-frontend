@@ -58,7 +58,7 @@ div.payment{
     display: flex;
     flex-direction: column;
     >div.line{
-      margin: 0 0 37px;
+      margin: 37px 0 37px;
       display: flex;
       flex-direction: row;
       gap: 17px;

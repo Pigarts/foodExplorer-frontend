@@ -1,6 +1,6 @@
 import {Routes, Route} from "react-router-dom"  
-import { Login } from "../pages/Login"
-import { SignUp } from '../pages/SignUp'
+import { Login } from "../pages/AuthPages/Login"
+import { SignUp } from '../pages/AuthPages/SignUp'
 
 
 

@@ -8,18 +8,17 @@ overflow-x: hidden;
 
 background-color: ${({theme}) => theme.COLORS.RED_1};
 width: 100svw;
-flex: 1;
+height: 100svh;
+
 `
 export const Content = styled.div`
 padding: 37px  56px 24px 56px ;
-display: flex;
-flex-direction: column;
+flex: 1;
 
-height: 100%;
 @media (min-width: 999px) {
    padding: 25px 130px ;
+   
 }
-
 `
 export const FoodContainer = styled.div`
 display: flex;
@@ -31,7 +30,7 @@ div.foodInfos {
    align-items: center;
    p  {
       text-align: center;
-      width: 100%;
+      
    }
 }
 
@@ -51,12 +50,18 @@ div.foodInfos {
       }
    }
    div.foodInfos {
-      width: fit-content;
       margin-left: 47px;
       flex-direction: column;
       gap: 24px;
       p {
          text-align: start;
+      }
+   }   
+   button.edit {
+      width: 162px;
+      margin-left: 15px;
+      >svg {
+         display: none;
       }
    }
 }
@@ -73,12 +78,13 @@ h1 {
    
    @media (min-width: 999px) {
       text-align: start;
+      
    }
 }
 
 p {
    margin-top: 24px;
-   width: fit-content;
+
    
    color: ${({theme}) => theme.COLORS.Light_100};
    
@@ -91,10 +97,11 @@ p {
 
 .addLine {
    margin-top: 48px;
-    display: flex;
-    gap: 16px;
-    align-items: center;
- }
+   display: flex;
+   gap: 16px;
+   align-items: center;
+   
+}
 `
 export const FoodImage = styled.img`
 height: 264px;
@@ -112,6 +119,6 @@ justify-content: space-evenly;
 @media (min-width: 999px) {
    width: 687px;
    justify-content: flex-start;
-  }
+}
 
 `;

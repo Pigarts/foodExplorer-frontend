@@ -3,20 +3,21 @@ import { Counter } from "../../components/counter"
 import { Button } from "../../components/button"
 import { useState, useEffect } from "react";
 import { IconButton } from "../IconButton";
-import { Icon_Outline_heart, Icon_Full_heart } from "../Icons";
+import { Icon_Outline_heart, Icon_Full_heart, Icon_Edit } from "../Icons";
 import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 
 export function FoodCard({ imageSrc, title, description, price, id, onImageClick, foodImg, foodName }) {
         const [foodsValue, setFoodsValue] = useState(1);
         const [likeIcon, setLikeIcon] = useState(false);
         const [likeds, setLikeds] = useState([]);
-        const [cartQuantity, setCartQuantity] = useState(0)
         const  { user, addToCart, removeFromCart, screenCart, cartData }  = useAuth();
+        const navigate = useNavigate()
 
         async function handleLikeButton() {       
-                await api.post(`/foods/like`, {user: user.id, food: id})
+                await api.post(`/foods/like`, {food: id})
                 setLikeIcon(true);                  
                 if (likeIcon === true) {
                 await api.delete(`/foods/unLike?user=${user.id}&food=${id}`); 
@@ -24,6 +25,10 @@ export function FoodCard({ imageSrc, title, description, price, id, onImageClick
                 }
             }
 
+        function handleEditButton() {
+                navigate(`/editFood/${id}`)
+
+        }
         function handleFoodsValueChange(newValue) {
                 setFoodsValue(newValue);
         }
@@ -52,17 +57,43 @@ export function FoodCard({ imageSrc, title, description, price, id, onImageClick
                
         }
 
-        // fetchLikeds
+        const content = {
+                '0': <>
+                        <IconButton onClick={handleLikeButton} className="like" icon={likeIcon ? Icon_Full_heart : Icon_Outline_heart }/>
+                        <ImgButton onClick={onImageClick}>
+                        <CardImage src={imageSrc} alt="Imagem da comida" />
+                        </ImgButton>
+                        <CardTitle>{title}</CardTitle>
+                        <CardDescription>{description}</CardDescription>
+                        <CardPrice>{price}</CardPrice>
+                        <div className="line">
+                           <Counter foods={foodsValue} onFoodsChange={handleFoodsValueChange}/>
+                           <Button onClick={handleAddButton} title={foodsValue === 0 ? "Remover" : "Adicionar" }/>     
+                        </div>
+                
+                 </>,
+                '1': <>
+                  
+                <IconButton onClick={handleEditButton} className="edit" icon={Icon_Edit}/>
+                <ImgButton onClick={onImageClick}>
+                <CardImage src={imageSrc} alt="Imagem da comida" />
+                </ImgButton>
+                <CardTitle>{title}</CardTitle>
+                <CardDescription>{description}</CardDescription>
+                <CardPrice>{price}</CardPrice>
+                
+                </>
+              };
+
         useEffect(() => {
                 async function fetchLikeds() {
-                  const response = await api.get(`/foods/likeds?user=${user.id}`);
+                  const response = await api.get(`/foods/likeds`);
                   setLikeds(response.data);
                   return
                 }
                 fetchLikeds();
         }, [user.id]);
         
-        //setLikeIcon
         useEffect(() => {
                 likeds.forEach(item => {
                   if (item.id === id) {
@@ -71,34 +102,9 @@ export function FoodCard({ imageSrc, title, description, price, id, onImageClick
                 });
         }, [likeds, id]);
 
-        //findItemsOnCart
-        useEffect(() => {
-                if(screenCart) {
-                        screenCart.forEach(item => {
-                                if (item.id === id) {
-                              setCartQuantity(item.quantity)
-                                
-                                }
-                              });
-
-                }
-
-        }, [screenCart]);
-
         return (
                 <CardContent>
-                <IconButton onClick={handleLikeButton} className="like" icon={likeIcon ? Icon_Full_heart : Icon_Outline_heart }/>
-                <ImgButton onClick={onImageClick}>
-                <CardImage src={imageSrc} alt="Imagem da comida" />
-                </ImgButton>
-                <CardTitle>{title}</CardTitle>
-                <CardDescription>{description}</CardDescription>
-                <CardPrice>{price}</CardPrice>
-                <div className="line">
-                   <Counter foods={foodsValue} onFoodsChange={handleFoodsValueChange}/>
-                   <Button onClick={handleAddButton} title={foodsValue === 0 ? "Remover" : "Adicionar" }/>     
-                </div>
-                
+                {content[user.adm ? "1" : "0"]}
                 </CardContent>
 )
 }

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Container, Content, Form, TagBox, ImgUpload } from "./styles"
 import { IconButton } from "../../../components/IconButton"
 import { Icon_Left_Arrow, Icon_Upload, Icon_Done } from "../../../components/Icons"
@@ -11,8 +11,7 @@ import { Button } from "../../../components/button"
 import { Header } from "../../../components/header"
 import { useNavigate } from "react-router-dom"
 import { api } from "../../../services/api"
-import { AlertError } from "../../../components/alertError"
-import { NiceAlert } from "../../../components/niceAlert"
+import { Alert } from "../../../components/alert"
 
 export function NewFood() {
     const [ imgFile, setImgFile ] = useState("")
@@ -22,18 +21,22 @@ export function NewFood() {
     const [ description, setDescription ] = useState('');
     const [ ingredients, setIngredients ] = useState([])
     const [ newIngredients, setNewIngredients ] = useState("")
-    const [ error, setError ] = useState(false)
-    const [ errorMessage, setErrorMessage ] = useState("")
-    const [ niceAlert, setNiceAlert ] = useState(false)
+    const [ alert, setAlert ] = useState(false)
+    const [ alertType, setAlertType ] = useState("error")
+    const [ AlertMessage, setAlertMessage ] = useState("")
 
+    const navigate = useNavigate();
 
-
-
-    const navigate = useNavigate()
+    function showAlert(message, type) {
+        setAlertMessage(message);
+        setAlertType(type);
+        setAlert(true);
+      }
 
     function handleAddIngredients(){
         if(newIngredients.length < 1) {
-           return alert("tag sem cnteúdo")
+          showAlert("tag sem cnteúdo", "bad") 
+          return 
         }
         setIngredients(prevState => [...prevState, newIngredients]);
         setNewIngredients("");    
@@ -56,48 +59,23 @@ export function NewFood() {
         setImgFile(file)
     }
     
-    
-    function showError(message, type) {
-                if(type === "nice") {
-                    console.log("nice")
-                    setErrorMessage(message)
-                    setNiceAlert(true)
-    
-               setTimeout(function(){
-                setNiceAlert(false)
-                    setErrorMessage(null)
-
-               }, 2000);
-               return
-                }
-    
-               setErrorMessage(message)
-               setError(true)
-    
-               setTimeout(function(){
-                  setError(false)
-                    setErrorMessage(null)
-
-               }, 2000);
-           }
-    
     async function handleSaveButton() {
-        if(!imgFile) {return  showError("O prato precisa de uma imagem") }
-        if(!name) {return  showError("O prato precisa de um nome") }
-        if(!category || category == 0) {return  showError("Selecione a categoria do prato") }
-        if(ingredients.length == 0) {return  showError("É preciso informar os ingredientes do prato") }
-        if(!price) {return  showError("O prato precisa de um preço") }  
-        
+        if(!imgFile) {return  showAlert("O prato precisa de uma imagem", "bad") }
+        if(!name) {return  showAlert("O prato precisa de um nome", "bad") }
+        if(!category || category == 0) {return  showAlert("Selecione a categoria do prato", "bad") }
+        if(ingredients.length == 0) {return  showAlert("É preciso informar os ingredientes do prato", "bad") }
+        if(!price) {return  showAlert("O prato precisa de um preço", "bad") }  
+        if(!description) {return  showAlert("O prato precisa de uma descrição", "bad") }
         try {
             const food = { category, name, descriptions: description, ingredients, price, img: imgFile };
             const formData = new FormData();
             formData.append("img", imgFile);
             formData.append("food", JSON.stringify(food));
             const response = await api.post("/foods/create", formData);
-            showError("Prato criado com sucesso!", "nice")
+            showAlert("Prato criado com sucesso!", "nice")
         } catch (error) {
             if (error.response) {
-                showError(error.response.data.message)
+                showAlert(error.response.data.message, "bad")
             } else {
                 console.error(error); 
             }
@@ -111,7 +89,14 @@ export function NewFood() {
         { label: 'Sobremesas', value: 'Sobremesas' },
         { label: 'Bebidas', value: 'Bebidas' },
     ];
-    
+
+     useEffect(() => {
+        let timeoutId;
+
+        if (alert) {
+          timeoutId = setTimeout(() => {setAlert(false);}, 2000);}
+        return () => clearTimeout(timeoutId);
+    }, [alert]);
 
     return (
         <Container>
@@ -157,14 +142,12 @@ export function NewFood() {
                 <Input title={"Preço"} placeholder="R$ 00.00" type="number"
                 onChange={e => setPrice(e.target.value)}/> 
             </div>
-            <TextBox title={"Descrição"} placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
+            <TextBox title={"Descrição"}
+            placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
             onChange={e => setDescription(e.target.value)}/>
              
             <Button className="save" onClick={handleSaveButton} title="Salvar novo prato" loading={false}/>
-     
-            <AlertError title={errorMessage} visible={error}/>
-            <NiceAlert title={errorMessage} visible={niceAlert}/>
-
+            <Alert title={AlertMessage} visible={alert} colorOption={alertType} />
             </Form>
          </Content>
          <Footer/>

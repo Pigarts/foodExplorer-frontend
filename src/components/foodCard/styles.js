@@ -16,7 +16,7 @@ export const CardContent = styled.div`
 
   background-color: ${({theme}) => theme.COLORS.Dark_200};
   position: relative;
-  .like{
+  .like, .edit {
     position: absolute;
     top: 16px;
     right: 16px;

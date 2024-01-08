@@ -14,12 +14,14 @@ export function NavBar() {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
   const  {user, signOut}  = useAuth();
     const isAdmin = user.adm;
     
   function handleSignOut() {
     signOut()
   }
+  
     return (
       <>
         <Button onClick={toggleSidebar}>{isOpen ? <><Icon_Close/> <span>Menu</span></>: <Icon_Menu/>}</Button>

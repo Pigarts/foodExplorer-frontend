@@ -8,7 +8,6 @@ function AuthProvider({children}) {
     const [data, setData] = useState({});
     const [screenCart, setScreenCart] = useState([]);
     const [payment, setPayment] = useState("0");
-    const [paymentStatus, setPaymentStatus] = useState("Pendente")
 
     async function signIn({email, password}) {
         try {
@@ -37,6 +36,30 @@ function AuthProvider({children}) {
 
     let cart = JSON.parse(localStorage.getItem("@foodExplorer:cart")) || [];
     
+    function addToCart(item) {
+        const existingItemIndex = cart.findIndex(cartItem => cartItem.id === item.id);
+        
+        if (existingItemIndex !== -1) {
+            cart[existingItemIndex].quantity += item.quantity;
+        } else {
+            cart.push(item);
+        }
+        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
+        setScreenCart(cart)
+    }
+    
+    function removeFromCart(itemToRemove) {
+        cart = cart.filter(item => item.id !== itemToRemove.id);
+        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
+        setScreenCart(cart)
+    }
+    
+    function clearCart() {
+        cart = []
+        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
+        setScreenCart(cart)
+    }
+
     async function pay(paymentMethod) {
         const totalCartValue = screenCart.reduce((total, item) => total + item.total_price, 0);
         const cartValue = totalCartValue.toFixed(2);
@@ -51,18 +74,14 @@ function AuthProvider({children}) {
                         try {
                             const response = await api.get("/orders/orderstatus");
                             const status = response.data;
-                            console.log(status);
-                            setPaymentStatus(status);
 
                             if (status === "Preparando") {
                                 setPayment("2")
-                                console.log("A repetição foi interrompida devido à condição.");
                             }
 
                             if (status === "Entregue") {
                                 setPayment("3")
                                 clearInterval(fetchInterval);
-                                console.log("A repetição foi interrompida devido à condição.");
                                 clearCart()
                             }
 
@@ -78,31 +97,7 @@ function AuthProvider({children}) {
             console.error("Erro ao fazer a requisição:", error);
           }
     }
-    
-    function addToCart(item) {
-        const existingItemIndex = cart.findIndex(cartItem => cartItem.id === item.id);
 
-        if (existingItemIndex !== -1) {
-            cart[existingItemIndex].quantity += item.quantity;
-        } else {
-            cart.push(item);
-        }
-        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
-        setScreenCart(cart)
-    }
-
-    function removeFromCart(itemToRemove) {
-        cart = cart.filter(item => item.id !== itemToRemove.id);
-        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
-        setScreenCart(cart)
-    }
-
-    function clearCart() {
-        cart = []
-        localStorage.setItem('@foodExplorer:cart', JSON.stringify(cart));
-        setScreenCart(cart)
-    }
-    
     useEffect(() => {
         const token = localStorage.getItem("@foodExplorer:token")
         const user = localStorage.getItem("@foodExplorer:user")
@@ -130,7 +125,7 @@ function AuthProvider({children}) {
         attCart()
     }, [])
     return(
-        <AuthContext.Provider value={{signIn, signOut, pay, payment, addToCart, removeFromCart, clearCart, user: data.user, screenCart}}>
+        <AuthContext.Provider value={{  signIn, signOut, pay, payment, addToCart, removeFromCart, clearCart, user: data.user, screenCart}}>
             {children}
         </AuthContext.Provider>
     )

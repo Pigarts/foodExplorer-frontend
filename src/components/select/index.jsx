@@ -7,7 +7,7 @@ export function Select({icon: Icon, title, options, onChange, orderStatus, ...re
         <Container>
             {Icon && <Icon size={20}/>}
             <div id="orderstatus" className={`${orderStatus}`}></div>
-            <select name="#" id="#" onChange={onChange}>
+            <select name="#" id="#" onChange={onChange}  {...rest}>
           
                 {
                 options.map((option, index) => (

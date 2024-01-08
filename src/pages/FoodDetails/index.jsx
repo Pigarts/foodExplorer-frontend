@@ -12,16 +12,13 @@ import { api } from "../../services/api"
 import { useAuth } from "../../hooks/auth";
 
 export function FoodDetails() {
-    
     const [food, setFood] = useState({});
     const [likeIcon, setLikeIcon] = useState(false);
     const [foodsValue, setFoodsValue] = useState(1);
-    const [ cartIndex, setCartIndex ] = useState([])
+
     const  { user, addToCart, removeFromCart }  = useAuth();
 
-    
     const params = useParams()
-    
     const navigate = useNavigate()
     
     function goBack() {
@@ -31,8 +28,6 @@ export function FoodDetails() {
     function handleFoodsValueChange(newValue) {
                 setFoodsValue(newValue);
         }
-    
-    
 
         function handleAddButton() {
             let price = food.price
@@ -48,16 +43,17 @@ export function FoodDetails() {
                     total_price: ( numberPrice * Number(foodsValue)),
                     id: food.id
             }
-            
             if (Number(foodsValue) == 0) {
                     removeFromCart(item);         
                     return
             }
-            
             addToCart(item)
-           
     }
-    
+
+  function handleEditFood() {
+        navigate(`/editFood/${params.id}`)
+    }
+  
     function handleLikeButton() {
         setLikeIcon(!likeIcon)
     }
@@ -74,8 +70,8 @@ export function FoodDetails() {
         <Container>
             <Header/>
                 <Content>
-                    <IconButton className="backButton" onClick={() => goBack()} icon={Icon_Left_Arrow} title="Voltar"/>
-                  
+                    <IconButton className="backButton" onClick={() => goBack()} icon={Icon_Left_Arrow} title="Voltar"/>    
+                    <div className="">
                     {food && 
                         <FoodContainer>  
                         <FoodImage src={`${api.defaults.baseURL}/files/${food.img}`} alt="Card" />
@@ -92,14 +88,17 @@ export function FoodDetails() {
                             }
                         </Tags>
                         <div className="addLine">
-                        <Counter foods={foodsValue} onFoodsChange={handleFoodsValueChange}/>
-                        <Button className="order" icon={Icon_Receipt} onClick={handleAddButton} title={foodsValue === 0 ? "Remover" : `Incluir ∙ R$${(foodsValue * food.price)}` }/>
-                        </div>
+                            
+                            {user.adm ? <><Button className="edit" title={ `Editar prato`} onClick={handleEditFood}/></> : <><Counter foods={foodsValue} onFoodsChange={handleFoodsValueChange}/>
+                            <Button className="order" icon={Icon_Receipt} onClick={handleAddButton} title={foodsValue === 0 ? "Remover" : `Incluir ∙ R$${(foodsValue * food.price)}` }/>
+                       </>}
+                         </div>
                         </div>
                         
 
                         </FoodContainer>
                     }
+                        </div>       
                 </Content>
             <Footer/>
         </Container>

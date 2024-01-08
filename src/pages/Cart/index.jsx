@@ -9,14 +9,12 @@ import { TextButton } from "../../components/textButton"
 import { Pay } from "../../components/Pay"
 import { Button } from "../../components/button"
 
-
 export function Cart() {
   const [ foods, setFoods ] = useState([]);
   const [ cartValue, setCartValue ] = useState(0);
   const { screenCart, removeFromCart, payment } = useAuth()
   const [ paymentPageStatus, setPaymentPageStatus ] = useState("0");
   const navigate = useNavigate()
-
 
     function handleDetails(id) {
       navigate(`/food/${id}`)
@@ -26,6 +24,45 @@ export function Cart() {
       setPaymentPageStatus("1")
     }
 
+    const content = {
+    '0': <>
+     {
+      screenCart&&
+      screenCart.length > 0 ? <>
+      <div className="orders">
+        <h2>Meu pedido</h2>
+  <FoodContainer>
+    
+    {
+      foods &&(
+        foods.map((food, index) => (
+        <FoodCard key={index} >
+          <img onClick={() => handleDetails(food.id)} src={`${api.defaults.baseURL}/files/${food.img}`} alt="imagem do prato" />
+          <div className="cardLine">
+            <div>
+            <p className="name">{`${food.quantity} x ${food.name}`}</p> <span className="price">{`R$ ${food.total_price.toFixed(2)}`}</span>
+            </div>
+            <TextButton title={"Excluir"} onClick={() => removeFromCart(food)}/>
+          </div>
+        </FoodCard>
+        )))
+    }
+    <p>Total: R$ {cartValue}</p>
+    <Button className="next" title={"Avançar"} onClick={handleNextButton}/>
+  </FoodContainer>
+       </div>
+       <div className="payment"><h2>Pagamento</h2>
+       <Pay/>
+       </div>
+      </> : <> <div className="center"> <h2>Nenhum item no carrinho</h2> </div></> 
+     
+    }  
+    </>,
+    '1': <>
+      <Pay/>
+    </>
+  };
+  
     useEffect(() => {
         async function fetchAllFood() {
           setFoods(screenCart)
@@ -35,44 +72,6 @@ export function Cart() {
 
         setCartValue(totalCartValue.toFixed(2));
     }, [screenCart])
-      const content = {
-      '0': <>
-       {
-        screenCart&&
-        screenCart.length > 0 ? <>
-        <div className="orders">
-          <h2>Meu pedido</h2>
-    <FoodContainer>
-      
-      {
-        foods &&(
-          foods.map((food, index) => (
-          <FoodCard key={index} >
-            <img onClick={() => handleDetails(food.id)} src={`${api.defaults.baseURL}/files/${food.img}`} alt="imagem do prato" />
-            <div className="cardLine">
-              <div>
-              <p className="name">{`${food.quantity} x ${food.name}`}</p> <span className="price">{`R$ ${food.total_price.toFixed(2)}`}</span>
-              </div>
-              <TextButton title={"Excluir"} onClick={() => removeFromCart(food)}/>
-            </div>
-          </FoodCard>
-          )))
-      }
-      <p>Total: R$ {cartValue}</p>
-      <Button className="next" title={"Avançar"} onClick={handleNextButton}/>
-    </FoodContainer>
-         </div>
-         <div className="payment"><h2>Pagamento</h2>
-         <Pay toPay={{ screenCart, cartValue }}/>
-         </div>
-        </> : <> <div className="center"> <h2>Nenhum item no carrinho</h2> </div></> 
-       
-      }  
-      </>,
-      '1': <>
-        <Pay toPay={{ screenCart, cartValue }}/>
-      </>
-    };
 
     return (
         <Container>

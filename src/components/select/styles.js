@@ -16,18 +16,14 @@ span {
 `
 
 export const Container = styled.div`
-
 display: flex;
 align-items: center;
 background-color: ${({theme}) => theme.COLORS.Dark_800};
 border-radius: 10px;
-
 padding-right: 12px;
-
 >svg {
     margin-left: 16px;
 }
-
 div.Pendente{
     margin-left: 12px; 
     width: 8px;
@@ -49,18 +45,14 @@ div.Entregue{
     background-color: ${({theme}) => theme.COLORS.Mint_100};
     border-radius: 50%;
 }
-
 >select {
     height: 56px;
     width: 100%;
     padding: 16px 13px;
-    
     color: ${({theme}) => theme.COLORS.Light_100};
     background: transparent;
     outline: none;
-    
     border: none;
-    
     option{
         color: ${({theme}) => theme.COLORS.Light_400};
         
@@ -70,19 +62,14 @@ div.Entregue{
         font-weight: 400;
         line-height: 160%;    
     }
-    
     option:nth-child(even) {
         background-color: ${({theme}) => theme.COLORS.Dark_800};
     }
     option:nth-child(odd){
         background-color: ${({theme}) => theme.COLORS.Dark_900};
-        
     }
-    
 }
 `
 export const Option = styled.option` 
-   
    background-color: ${({theme}) => theme.COLORS.Dark_800};
-   
    `;
