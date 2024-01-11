@@ -20,23 +20,20 @@ export function Home() {
     function handleDetails(id) {
       navigate(`/food/${id}`)
     }
-    
 
-    useEffect(() => {
-        async function fetchCategory() {
-            const response = await api.get("/foods/categories")
-            setCategories(response.data)
-        }
-        fetchCategory()
-      }, [])
-
-      useEffect(() => {
-        async function fetchAllFood() {
-            const response = await api.get(`/foods/allFoods`)
-            setFoods(response.data)
-        }
-        fetchAllFood()
-      }, [])
+  useEffect(() => {
+    async function fetchAllFood() {
+      const response = await api.get(`/foods/allFoods`);
+      const allFoods = response.data;
+  
+      const categories = Array.from(new Set(allFoods.map(food => food.category)));
+  
+      setCategories(categories);
+      setFoods(allFoods);
+    }
+  
+    fetchAllFood();
+  }, []);
     
     return (
         <Container>

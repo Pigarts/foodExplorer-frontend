@@ -86,13 +86,14 @@ export function FoodCard({ imageSrc, title, description, price, id, onImageClick
               };
 
         useEffect(() => {
+                if(!user.adm) {
                 async function fetchLikeds() {
-                  const response = await api.get(`/foods/likeds`);
-                  setLikeds(response.data);
-                  return
+                        const response = await api.get(`/foods/likeds`);
+                        setLikeds(response.data);
+                        }
+                        fetchLikeds();
                 }
-                fetchLikeds();
-        }, [user.id]);
+        }, []);
         
         useEffect(() => {
                 likeds.forEach(item => {
