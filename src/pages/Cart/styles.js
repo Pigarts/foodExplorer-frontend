@@ -48,6 +48,9 @@ div.center{
     font-style: normal;
     font-weight: 500;
     line-height: 140%;
+    @media (max-width: 999px) {
+      font-size: 26px;
+    }
   }
 }
 

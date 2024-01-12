@@ -2,6 +2,19 @@
 
 ### últimos updates:
 
+#### commit "Refactor: Improved Rendering Logic and UI Enhancement"
+
+- Página Hume:
+    O método de renderização do componente Section foi alterado. Agora, o array de categorias é extraído dos próprios produtos recebidos da função fetchAllFood(), dispensando uma chamada à API apenas para recuperar as categorias.
+
+- Página OrdersHistory:
+    Agora, caso não haja nenhum pedido no histórico, a tabela ou o card não são renderizados, e aparece uma mensagem escrita "Nenhum pedido no histórico" no centro da página.
+
+- Componente FoodCard:
+    Agora, a chamada à API para buscar produtos marcados como favoritos só acontece para o usuário comum, evitando a chamada quando o usuário é um administrador, já que administradores não têm acesso às funções de "produtos favoritos".
+
+- Componente Logo:
+    O componente agora apresenta a exibição correta do indicador de usuário administrador também na versão desktop. O estilo do componente foi retrabalhado, dispensando a lógica de adição do span "admin" do componente Header.
 
 
 ### Introdução:  

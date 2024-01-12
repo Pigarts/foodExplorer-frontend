@@ -33,7 +33,7 @@ export function OrdersHistory() {
 
   const content = {
     '0': <>
-          <Content>
+
           <h2 className="desktop">Histórico de pedidos</h2>
         <h2 className="mobile">Pedidos</h2>
         <table>
@@ -78,10 +78,10 @@ export function OrdersHistory() {
                 </Card>
               ))
               }
-      </Content>
+
     </>,
     '1': <>
-      <Content>
+
         <h2 className="desktop">Histórico de pedidos</h2>
         <h2 className="mobile">Pedidos</h2>
         <table>
@@ -115,7 +115,7 @@ export function OrdersHistory() {
                 </Card>
               ))
               }
-      </Content>
+
     </>
   };
 
@@ -149,14 +149,23 @@ export function OrdersHistory() {
         console.error("Erro ao buscar os pedidos:", error);
       }
     }
-    user.adm ?  fetchAllOrders() :     fetchAllUserOrders();
+    user.adm ?  fetchAllOrders() : fetchAllUserOrders();
 
   }, [statusPageReload]);
   
   return (
     <Container>
       <Header />
-    {content[user.adm ? "0" : "1"]}
+      <Content>
+
+        {
+          orders &&
+          orders.length >= 1 ? <>{content[user.adm ? "0" : "1"]}</>  : <div className="center"> <h2>Nenhum pedido no histórico</h2></div>
+        }
+        
+      
+    
+        </Content>
       <Footer />
     </Container>
   );

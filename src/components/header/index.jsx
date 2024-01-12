@@ -19,8 +19,7 @@ export function Header() {
     const [ search, setSearch] = useState("")
     const [ cartIndex, setCartIndex ] = useState([])
     const { user, signOut, screenCart } = useAuth();
-
-    const {}  = useAuth();
+    
     const isAdmin = user.adm;
     const navigate = useNavigate()
         
@@ -58,7 +57,7 @@ export function Header() {
     return(
     <Container> 
         <Mobile>
-        <NavBar/> {!isAdmin ? <IconButton onClick={() => navigate("/")} icon={Logo}/> : <> <div className="admLogo"><IconButton onClick={() => navigate("/")} icon={Logo}/> <span>admin</span> </div> </>} {isAdmin ? <div></div> : <IconButton icon={Receipt} />}
+        <NavBar/> {!isAdmin ? <IconButton onClick={() => navigate("/")} icon={Logo}/> : <> <div className="admLogo"><IconButton onClick={() => navigate("/")} icon={Logo}/>  </div> </>} {isAdmin ? <div></div> : <IconButton icon={Receipt} />}
         </Mobile>
         <Desktop>
         <IconButton onClick={() => navigate("/")} icon={Logo}/>

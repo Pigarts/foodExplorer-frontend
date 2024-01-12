@@ -30,7 +30,7 @@ gap: 8px;
 color: ${({theme}) => theme.COLORS.Cake_200};
 
 > span {
-  font-family: Roboto;
+  font-family: roboto;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
