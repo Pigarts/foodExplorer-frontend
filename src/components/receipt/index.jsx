@@ -11,7 +11,6 @@ export function Receipt() {
 
     useEffect(() => {
       if(!screenCart || screenCart == "[]") {
-        console.log("zero")
         setCartIndex(0)
         return
       }

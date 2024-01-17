@@ -22,7 +22,6 @@ export function SignUp() {
         e.preventDefault()
         
         if(!name || !email || !password) {
-            console.log("name")
             alert("Preencha todos os campos")
             return
         }

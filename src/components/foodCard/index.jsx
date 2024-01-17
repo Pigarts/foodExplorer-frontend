@@ -86,7 +86,7 @@ export function FoodCard({ imageSrc, title, description, price, id, onImageClick
               };
 
         useEffect(() => {
-                if(!user.adm) {
+                if(!user.role === "adm") {
                 async function fetchLikeds() {
                         const response = await api.get(`/foods/likeds`);
                         setLikeds(response.data);
@@ -105,7 +105,7 @@ export function FoodCard({ imageSrc, title, description, price, id, onImageClick
 
         return (
                 <CardContent>
-                {content[user.adm ? "1" : "0"]}
+                {content[ user.role === "adm" ? "1" : "0"]}
                 </CardContent>
 )
 }

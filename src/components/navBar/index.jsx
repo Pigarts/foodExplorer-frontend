@@ -16,7 +16,8 @@ export function NavBar() {
   };
 
   const  {user, signOut}  = useAuth();
-    const isAdmin = user.adm;
+  const isAdmin = user.role === "adm";
+
     
   function handleSignOut() {
     signOut()

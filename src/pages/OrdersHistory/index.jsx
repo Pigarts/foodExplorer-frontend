@@ -20,7 +20,7 @@ export function OrdersHistory() {
   }
   
   async function changeOrderStatus(newStatus, id) {
-    console.log(newStatus, id)
+
     await api.patch("/orders/changeorderstatus", {newStatus, id})
     setStatusPageReload(!statusPageReload)
   }
@@ -121,7 +121,6 @@ export function OrdersHistory() {
 
   useEffect(() => {  
     async function fetchAllOrders() {
-        console.log("adm")
         try {
           const response = await api.get("/orders/allorders");
           const modifiedOrders = response.data.map((order) => ({
@@ -129,7 +128,7 @@ export function OrdersHistory() {
             id: order.id.toString().padStart(8, "0"),
             formattedDate: transformStringData(order.created_at),
           }));
-          console.log(modifiedOrders);
+
           setOrders(modifiedOrders);
         } catch (error) {
           console.error("Erro ao buscar os pedidos:", error);
@@ -143,13 +142,13 @@ export function OrdersHistory() {
           id: order.id.toString().padStart(8, "0"),
           formattedDate: transformStringData(order.created_at),
         }));
-        console.log(modifiedOrders);
+   
         setOrders(modifiedOrders);
       } catch (error) {
         console.error("Erro ao buscar os pedidos:", error);
       }
     }
-    user.adm ?  fetchAllOrders() : fetchAllUserOrders();
+    user.role === "adm" ?  fetchAllOrders() : fetchAllUserOrders();
 
   }, [statusPageReload]);
   
@@ -160,7 +159,7 @@ export function OrdersHistory() {
 
         {
           orders &&
-          orders.length >= 1 ? <>{content[user.adm ? "0" : "1"]}</>  : <div className="center"> <h2>Nenhum pedido no histórico</h2></div>
+          orders.length >= 1 ? <>{content[ user.role === "adm" ? "0" : "1"]}</>  : <div className="center"> <h2>Nenhum pedido no histórico</h2></div>
         }
         
       

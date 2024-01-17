@@ -53,7 +53,7 @@ export function Pay() {
         expiry: expiry.replace(new RegExp("/", 'g'), ""), 
         cvc,
       }
-      console.log(cardInfos)
+
       pay(cardInfos)
     }          
     

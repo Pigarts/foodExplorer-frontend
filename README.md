@@ -2,6 +2,15 @@
 
 ### últimos updates:
 
+#### commit "NotFound Page and User Role"
+
+- Página NotFound:
+    Implementação de uma página para quando o usuário tentar acessar uma rota que não existe ou não tem acesso.
+
+- User Role:
+    Adaptação da identificação do usuário para as novas funções implementadas no backend.
+
+
 #### commit "Refactor: Improved Rendering Logic and UI Enhancement"
 
 - Página Hume:
@@ -1066,3 +1075,12 @@ A rota inicialmente tenta obter informações do usuário no contexto useAuth. S
 
     transformStringData(dataString): Converte a data no formato de string para um formato mais legível. 
 
+- NotFund
+    
+    Exibe uma mensagem de erro 404, indicando que a página solicitada não foi encontrada. 
+
+    A página é projetada para fornecer uma mensagem clara de erro 404 quando uma página não é encontrada.
+
+    Inclui um botão para retornar à página inicial, proporcionando uma opção de navegação fácil.
+
+    A presença do cabeçalho e rodapé é condicional com base na autenticação do usuário.

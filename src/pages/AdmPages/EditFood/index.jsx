@@ -48,11 +48,11 @@ export function EditFood() {
         }
         setIngredients(prevState => [...prevState, newIngredients]);
         setNewIngredients("");
-        console.log(ingredients)    
+ 
     }
     function handleRemoveIngredients(deleted) {
         setIngredients(prevState => [...prevState.filter(Ingredient => Ingredient !== deleted)]);
-        console.log(ingredients)
+
     }
     
     function handleChangeFoodImg(event) {
@@ -82,7 +82,6 @@ export function EditFood() {
                 const formData = new FormData();
                 formData.append("img", imgFile)
                 formData.append("food", JSON.stringify(updatedFood))
-                console.log(formData)
                 const response = await api.put("/foods/update", formData)
                 showAlert("Prato atualizado com sucesso!", "nice")
             } catch (error) {

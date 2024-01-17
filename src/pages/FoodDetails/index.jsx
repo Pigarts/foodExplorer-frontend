@@ -29,25 +29,25 @@ export function FoodDetails() {
                 setFoodsValue(newValue);
         }
 
-        function handleAddButton() {
-            let price = food.price
+    function handleAddButton() {
+        let price = food.price
 
-            let remove = price.replace("R$ ", "")
-            let replace = remove.replace(",", ".")
-            let numberPrice = parseFloat(replace)
+        let remove = price.replace("R$ ", "")
+        let replace = remove.replace(",", ".")
+        let numberPrice = parseFloat(replace)
             
-            const item = {
-                    name: food.name,
-                    quantity: Number(foodsValue),
-                    price: price,
-                    total_price: ( numberPrice * Number(foodsValue)),
-                    id: food.id
+        const item = {
+            name: food.name,
+            quantity: Number(foodsValue),
+            price: price,
+            total_price: ( numberPrice * Number(foodsValue)),
+            id: food.id
+        }
+        if (Number(foodsValue) == 0) {
+                removeFromCart(item);         
+                return
             }
-            if (Number(foodsValue) == 0) {
-                    removeFromCart(item);         
-                    return
-            }
-            addToCart(item)
+        addToCart(item)
     }
 
   function handleEditFood() {
@@ -89,7 +89,7 @@ export function FoodDetails() {
                         </Tags>
                         <div className="addLine">
                             
-                            {user.adm ? <><Button className="edit" title={ `Editar prato`} onClick={handleEditFood}/></> : <><Counter foods={foodsValue} onFoodsChange={handleFoodsValueChange}/>
+                            { user.role === "adm" ? <><Button className="edit" title={ `Editar prato`} onClick={handleEditFood}/></> : <><Counter foods={foodsValue} onFoodsChange={handleFoodsValueChange}/>
                             <Button className="order" icon={Icon_Receipt} onClick={handleAddButton} title={foodsValue === 0 ? "Remover" : `Incluir ∙ R$${(foodsValue * food.price)}` }/>
                        </>}
                          </div>
