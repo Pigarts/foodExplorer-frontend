@@ -1,4 +1,4 @@
-# backend FoodExplorer  
+# Frontend FoodExplorer  
 
 ### últimos updates:
 
